@@ -7,7 +7,7 @@ bàßýÚrÛ.üªìZ.¾·.ª]¬-÷.Z..p¢Ù9Î.m.r..Ìe.ö.\Ïü.q©.Ê.².Q.:.�
 ## Segunda fase: desciframos el fichero con la secret key.
 ---
 HEADER
-huella dactilar: 8345df234AB4
+8345df234AB4
 END
 `¦iì5.èWçZ~¸¨Z.Ò..9¦0.Vÿ.³õ1|ÆH.?*ãÔ.ç2%·.....×c=[ÞéÊ; .jz&Ë_û*¡¶öUÔ.vè]...
 vµnR.`
