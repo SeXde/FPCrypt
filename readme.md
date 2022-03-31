@@ -3,7 +3,7 @@
 ## What is it?
 - **FPcrypt** is an university project made in C#.
 ---
-## what can i do with **FPCrypt**?
+## What can i do with **FPCrypt**?
 - You can cipher any type of files with your finger print.
 - You can manage finger prints.
 ## Why should i use **FPCrypt**?
