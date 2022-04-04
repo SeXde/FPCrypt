@@ -4,12 +4,12 @@ using System.Security.Cryptography;
 
 public class EasyAES
 {
-    public static (string, byte[]?) Encrypt(string plainText, string password)
+    public static (string, byte[]) Encrypt(string plainText, string password)
     {
 
         if (string.IsNullOrEmpty(plainText))
         {
-            return (string.Empty, null);
+            throw new ArgumentNullException("Text is null or empty");
         }
 
         if (string.IsNullOrEmpty(password))
@@ -47,7 +47,7 @@ public class EasyAES
 
         if (string.IsNullOrEmpty(cipherText))
         {
-            return string.Empty;
+            throw new ArgumentNullException("Text is null or empty");
         }
 
         if (string.IsNullOrEmpty(password))
@@ -71,6 +71,8 @@ public class EasyAES
 
         cryptoStream.Write(cipherBytes, 0, cipherBytes.Length);
         cryptoStream.FlushFinalBlock();
+
+
         byte[] plainBytes = memoryStream.ToArray();
         string plainText = Encoding.ASCII.GetString(plainBytes, 0, plainBytes.Length);
 
