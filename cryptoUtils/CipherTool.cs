@@ -62,6 +62,10 @@ namespace FPCrypt.cryptoUtils
             {
                 throw new ArgumentNullException("File name");
             }
+            if (string.IsNullOrEmpty(fingerprint))
+            {
+                throw new ArgumentNullException("Fingerprint");
+            }
             if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException("File: '{0}' not found", fileName);
