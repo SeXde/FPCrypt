@@ -47,7 +47,7 @@ namespace FPCrypt.cryptoUtils
             }
 
             byte[] iv = ivMap[cipherFileHash];
-            String plainText = EasyAES.Decrypt(cipherText, fingerprint, iv);
+            string plainText = EasyAES.Decrypt(cipherText, fingerprint, iv);
 
             File.WriteAllText(fileName, plainText);
 
