@@ -5,7 +5,7 @@ namespace FPCrypt.cryptoUtils
 {
     public class CipherTool
     {
-        private IDictionary<string, (byte[], string)> ivFingerprintMap= new Dictionary<string, (byte[], string)>();
+        private IDictionary<string, (byte[], string)> ivFingerprintMap = new Dictionary<string, (byte[], string)>();
         private SHA256 mySHA256 = SHA256.Create();
 
         public void EncryptFile(string fileName, string fingerprint)
