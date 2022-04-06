@@ -5,7 +5,8 @@ namespace FPCrypt.cryptoUtils
 {
     public class CipherTool
     {
-        private IDictionary<string, (byte[], string)> ivFingerprintMap= new Dictionary<string, (byte[], string)>();
+        private IDictionary<string, (byte[], string)> ivFingerprintMap = 
+            new Dictionary<string, (byte[], string)>();
         private SHA256 mySHA256 = SHA256.Create();
 
         public void EncryptFile(string fileName, string fingerprint)
@@ -17,6 +18,11 @@ namespace FPCrypt.cryptoUtils
             if (string.IsNullOrEmpty(text))
             {
                 throw new FileFormatException("File cannot be empty");
+            }
+
+            if (isAlreadyCipher(text))
+            {
+                throw new FileFormatException("File is already cipher");
             }
 
             //Encrypt file
@@ -73,6 +79,12 @@ namespace FPCrypt.cryptoUtils
             {
                 throw new FileNotFoundException("File: '" + fileName + "' not found");
             }
+        }
+
+        private bool isAlreadyCipher(string text)
+        {
+            string cipherFileHashText = Encoding.ASCII.GetString(mySHA256.ComputeHash(Encoding.ASCII.GetBytes(text)));
+            return ivFingerprintMap.ContainsKey(cipherFileHashText);
         }
     }
 }

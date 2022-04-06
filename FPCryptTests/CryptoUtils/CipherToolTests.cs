@@ -49,8 +49,26 @@ namespace FPCrypt.cryptoUtils.Tests
             {
                 expectedExcetpion = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch a file exception");
+            Assert.IsNotNull(expectedExcetpion, "We should catch a file format exception");
             Assert.AreEqual("File: '" + fileName + "' not found", expectedExcetpion.Message,
+                "Messages should match");
+        }
+
+        [TestMethod()]
+        public void EncryptFileTestCipherFile()
+        {
+            password = "Awesome password";
+            cipherTool.EncryptFile(fileName, password);
+            try
+            {
+                cipherTool.EncryptFile(fileName, password);
+            }
+            catch (Exception ex)
+            {
+                expectedExcetpion = ex;
+            }
+            Assert.IsNotNull(expectedExcetpion, "We should catch a file format exception");
+            Assert.AreEqual("File is already cipher", expectedExcetpion.Message,
                 "Messages should match");
         }
 
@@ -151,5 +169,44 @@ namespace FPCrypt.cryptoUtils.Tests
                 "Both messages should match");
 
         }
+
+        [TestMethod()]
+        public void DecryptFileTestDecryptedFile()
+        {
+            password = "WonderFul password m8";
+            cipherTool.EncryptFile(fileName, password);
+            cipherTool.DecryptFile(fileName, password);
+            try
+            {
+                cipherTool.DecryptFile(fileName, password);
+            }
+            catch (Exception ex)
+            {
+                expectedExcetpion = ex;
+            }
+            Assert.IsNotNull(expectedExcetpion, "We should catch NotSupported exception");
+            Assert.AreEqual("File cannot be decrypted", expectedExcetpion.Message,
+                "Both messages should match");
+
+        }
+
+        [TestMethod()]
+        public void DecryptFileTestDecryptedTwoTimesFile()
+        {
+            password = "WonderFul password m8";
+            string originalText = File.ReadAllText(fileName);
+            cipherTool.EncryptFile(fileName, password);
+            string oneTimeCipheredText = File.ReadAllText(fileName);
+            cipherTool.DecryptFile(fileName, password);
+            string originalText2 = File.ReadAllText(fileName);
+            cipherTool.EncryptFile(fileName, password);
+            string secondTimeCipheredText = File.ReadAllText(fileName);
+            cipherTool.DecryptFile(fileName, password);
+            string originalText3 = File.ReadAllText(fileName);
+            Assert.AreEqual(originalText, originalText2, originalText3, "All text should be equal");
+            Assert.AreNotEqual(oneTimeCipheredText, secondTimeCipheredText, "Both text should be different");
+        }
+
+
     }
 }
