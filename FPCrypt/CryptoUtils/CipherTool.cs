@@ -11,44 +11,35 @@ namespace FPCrypt.cryptoUtils
         public void EncryptFile(string fileName, string fingerprint)
         {
             checkArguments(fileName, fingerprint);
-
             string text = File.ReadAllText(fileName);
 
             if (string.IsNullOrEmpty(text))
             {
                 throw new FileFormatException("File cannot be empty");
             }
-
             if (isAlreadyCipher(text))
             {
                 throw new FileFormatException("File is already cipher");
             }
 
-            //Encrypt file
             var tuple = EasyAES.Encrypt(text, fingerprint);
             string cipherText = tuple.Item1;
-
             byte[] cipherFileHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(cipherText));
-       
-
             File.WriteAllText(fileName, cipherText);
-
-            //Save auto generated iv and fingerprint used
             ivFingerprintMap.Add(Encoding.ASCII.GetString(cipherFileHash), (tuple.Item2, fingerprint));
-
         }
+
 
         public void DecryptFile(string fileName, string fingerprint)
         {
             checkArguments(fileName, fingerprint);
-
             string cipherText = File.ReadAllText(fileName);
-
             byte[] cipherFileHash = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(cipherText));
             string cipherFileHashText = Encoding.ASCII.GetString(cipherFileHash);
+
             if (!ivFingerprintMap.ContainsKey(cipherFileHashText))
             {
-                throw new NotSupportedException("File cannot be decrypted");
+                throw new NotSupportedException("File cannot be decrypted, beacuse it hasn't been encrypted");
             }
             if (!fingerprint.Equals(ivFingerprintMap[cipherFileHashText].Item2))
             {
@@ -57,12 +48,10 @@ namespace FPCrypt.cryptoUtils
 
             byte[] iv = ivFingerprintMap[cipherFileHashText].Item1;
             string plainText = EasyAES.Decrypt(cipherText, fingerprint, iv);
-
             File.WriteAllText(fileName, plainText);
-
             ivFingerprintMap.Remove(cipherFileHashText);
-
         }
+
 
         private void checkArguments(string fileName, string fingerprint)
         {
@@ -79,6 +68,7 @@ namespace FPCrypt.cryptoUtils
                 throw new FileNotFoundException("File: '" + fileName + "' not found");
             }
         }
+
 
         private bool isAlreadyCipher(string text)
         {

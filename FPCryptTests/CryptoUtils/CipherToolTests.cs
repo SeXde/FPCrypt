@@ -10,7 +10,7 @@ namespace FPCrypt.cryptoUtils.Tests
 
         private CipherTool cipherTool;
         private string password, fileName, emptyFileName, plainText;
-        private Exception expectedExcetpion;
+        private Exception expectedException;
 
         [TestInitialize]
         public void Setup()
@@ -20,7 +20,7 @@ namespace FPCrypt.cryptoUtils.Tests
             fileName = "../../../CryptoUtils/DummyFile.txt";
             emptyFileName = "../../../CryptoUtils/EmptyFile.txt";
             plainText = null;
-            expectedExcetpion = null;
+            expectedException = null;
         }
 
 
@@ -36,6 +36,7 @@ namespace FPCrypt.cryptoUtils.Tests
             Assert.AreNotEqual(plainText, cipherText, "Both text should not be the same");
         }
 
+
         [TestMethod()]
         public void EncryptFileTestIncorrectFile()
         {
@@ -47,12 +48,13 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch a file format exception");
-            Assert.AreEqual("File: '" + fileName + "' not found", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch a file format exception");
+            Assert.AreEqual("File: '" + fileName + "' not found", expectedException.Message,
                 "Messages should match");
         }
+
 
         [TestMethod()]
         public void EncryptFileTestCipherFile()
@@ -65,12 +67,13 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch a file format exception");
-            Assert.AreEqual("File is already cipher", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch a file format exception");
+            Assert.AreEqual("File is already cipher", expectedException.Message,
                 "Messages should match");
         }
+
 
         [TestMethod()]
         public void EncryptFileTestNullFile()
@@ -83,12 +86,13 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch invalidParams exception");
-            Assert.AreEqual("Value cannot be null. (Parameter 'File name')", expectedExcetpion.Message, 
+            Assert.IsNotNull(expectedException, "We should catch invalidParams exception");
+            Assert.AreEqual("Value cannot be null. (Parameter 'File name')", expectedException.Message, 
                 "Both messages should match");
         }
+
 
         [TestMethod()]
         public void EncryptFileTestEmptyFile()
@@ -100,11 +104,12 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch invalidFormatFile exception");
-            Assert.AreEqual("File cannot be empty", expectedExcetpion.Message, "Both messages should match");
+            Assert.IsNotNull(expectedException, "We should catch invalidFormatFile exception");
+            Assert.AreEqual("File cannot be empty", expectedException.Message, "Both messages should match");
         }
+
 
         [TestMethod()]
         public void EncryptFileTestNullPassword()
@@ -115,12 +120,13 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch invalidParams exception");
-            Assert.AreEqual("Value cannot be null. (Parameter 'Fingerprint')", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch invalidParams exception");
+            Assert.AreEqual("Value cannot be null. (Parameter 'Fingerprint')", expectedException.Message,
                 "Both messages should match");
         }
+
 
         [TestMethod()]
         public void DecryptFileTestCorrectFile()
@@ -134,6 +140,7 @@ namespace FPCrypt.cryptoUtils.Tests
             Assert.AreEqual(plainText, plainText2, "Both files should be the same");
         }
 
+
         [TestMethod()]
         public void DecryptFileTestIncorrectFile()
         {
@@ -143,13 +150,13 @@ namespace FPCrypt.cryptoUtils.Tests
                 cipherTool.DecryptFile(fileName, password);
             } catch(Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch NotSupported exception");
-            Assert.AreEqual("File cannot be decrypted", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch NotSupported exception");
+            Assert.AreEqual("File cannot be decrypted, beacuse it hasn't been encrypted", expectedException.Message,
                 "Both messages should match");
-
         }
+
 
         [TestMethod()]
         public void DecryptFileTestIncorrectPassword()
@@ -162,13 +169,14 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch NotSupported exception");
-            Assert.AreEqual("Fingerprints do not match", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch NotSupported exception");
+            Assert.AreEqual("Fingerprints do not match", expectedException.Message,
                 "Both messages should match");
 
         }
+
 
         [TestMethod()]
         public void DecryptFileTestDecryptedFile()
@@ -182,13 +190,14 @@ namespace FPCrypt.cryptoUtils.Tests
             }
             catch (Exception ex)
             {
-                expectedExcetpion = ex;
+                expectedException = ex;
             }
-            Assert.IsNotNull(expectedExcetpion, "We should catch NotSupported exception");
-            Assert.AreEqual("File cannot be decrypted", expectedExcetpion.Message,
+            Assert.IsNotNull(expectedException, "We should catch NotSupported exception");
+            Assert.AreEqual("File cannot be decrypted, beacuse it hasn't been encrypted", expectedException.Message,
                 "Both messages should match");
 
         }
+
 
         [TestMethod()]
         public void DecryptFileTestDecryptedTwoTimesFile()
@@ -206,7 +215,5 @@ namespace FPCrypt.cryptoUtils.Tests
             Assert.AreEqual(originalText, originalText2, originalText3, "All text should be equal");
             Assert.AreNotEqual(oneTimeCipheredText, secondTimeCipheredText, "Both text should be different");
         }
-
-
     }
 }
