@@ -6,18 +6,34 @@ namespace FPCrypt
     public class ArduinoCom
     {
         private SerialPort serialPort;
+        private const string ACK_END = "BYEBYE!";
 
         public ArduinoCom()
         {
-            serialPort = new SerialPort();
-            serialPort.BaudRate = 9600;
             string arduinoPort = AutodetectArduinoPort();
             if (arduinoPort == null)
             {
                 throw new Exception("Cannot find arduino port");
             }
-            serialPort.PortName = arduinoPort;
+            serialPort = new SerialPort(arduinoPort, 9600, Parity.None, 8, StopBits.One);
         }
+
+
+        public string readFingerPrint()
+        {
+            string readedValue = string.Empty;
+            serialPort.Open();
+            serialPort.Write("Get fingerprint");
+            do
+            {
+                readedValue += serialPort.ReadExisting();
+                Thread.Sleep(200);
+            } while (!readedValue.Contains(ACK_END));
+
+            serialPort.Close();
+            return readedValue.Replace(ACK_END, "");
+        }
+
 
         private string AutodetectArduinoPort()
         {
