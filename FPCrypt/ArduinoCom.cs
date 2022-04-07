@@ -6,7 +6,7 @@ namespace FPCrypt
     public class ArduinoCom
     {
         private SerialPort serialPort;
-        private const string ACK_END = "BYEBYE!";
+        private const string ACK_FP = "fingerprint:";
 
         public ArduinoCom()
         {
@@ -24,14 +24,23 @@ namespace FPCrypt
             string readedValue = string.Empty;
             serialPort.Open();
             serialPort.Write("Get fingerprint");
+
             do
             {
-                readedValue += serialPort.ReadExisting();
+                readedValue = serialPort.ReadExisting();
                 Thread.Sleep(200);
-            } while (!readedValue.Contains(ACK_END));
+            } while (!readedValue.Contains(ACK_FP));
 
             serialPort.Close();
-            return readedValue.Replace(ACK_END, "");
+            return readedValue.Replace(ACK_FP, "");
+        }
+
+
+        public void writeInfo(string info, string type)
+        {
+            serialPort.Open();
+            serialPort.Write("Show " + type + ":" + info);
+            serialPort.Close();
         }
 
 
@@ -60,6 +69,12 @@ namespace FPCrypt
             }
 
             return null;
+        }
+
+
+        private void checkConnection()
+        {
+            // TODO
         }
 
     }
