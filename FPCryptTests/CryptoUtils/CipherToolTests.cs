@@ -9,16 +9,18 @@ namespace FPCrypt.cryptoUtils.Tests
     {
 
         private CipherTool cipherTool;
-        private string password, fileName, emptyFileName, plainText;
+        private string password, fileName, emptyFileName, plainText, newFileName, path;
         private Exception expectedException;
 
         [TestInitialize]
         public void Setup()
         {
             cipherTool = new CipherTool();
-            password = null;
-            fileName = "../../../CryptoUtils/DummyFile.txt";
-            emptyFileName = "../../../CryptoUtils/EmptyFile.txt";
+            password = "WonderFul password m8";
+            path = "../../../CryptoUtils/";
+            fileName = path + "DummyFile.txt";
+            newFileName = path + "DummyFile.fpc";
+            emptyFileName = path + "EmptyFile.txt";
             plainText = null;
             expectedException = null;
         }
@@ -27,13 +29,13 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void EncryptFileTestCorrectFile()
         {
-            password = "wonderful password 987";
             plainText = File.ReadAllText(fileName);
             cipherTool.EncryptFile(fileName, password);
-            string cipherText = File.ReadAllText(fileName);
+            string cipherText = File.ReadAllText(newFileName);
             Assert.IsNotNull(plainText, "Readed plaint text should not be null");
             Assert.IsNotNull(cipherText, "Resulted cipher text cannot be null");
             Assert.AreNotEqual(plainText, cipherText, "Both text should not be the same");
+            cipherTool.DecryptFile(newFileName, password);
         }
 
 
@@ -41,7 +43,6 @@ namespace FPCrypt.cryptoUtils.Tests
         public void EncryptFileTestIncorrectFile()
         {
             fileName = "NonExistingFile.notexists";
-            password = "wonderful password 987";
             try
             {
                 cipherTool.EncryptFile(fileName, password);
@@ -59,16 +60,16 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void EncryptFileTestCipherFile()
         {
-            password = "Awesome password";
             cipherTool.EncryptFile(fileName, password);
             try
             {
-                cipherTool.EncryptFile(fileName, password);
+                cipherTool.EncryptFile(newFileName, password);
             }
             catch (Exception ex)
             {
                 expectedException = ex;
             }
+            cipherTool.DecryptFile(newFileName, password);
             Assert.IsNotNull(expectedException, "We should catch a file format exception");
             Assert.AreEqual("File is already cipher", expectedException.Message,
                 "Messages should match");
@@ -79,7 +80,6 @@ namespace FPCrypt.cryptoUtils.Tests
         public void EncryptFileTestNullFile()
         {
             fileName = null;
-            password = "wonderful password 987";
             try
             {
                 cipherTool.EncryptFile(fileName, password);
@@ -97,7 +97,6 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void EncryptFileTestEmptyFile()
         {
-            password = "wonderful password 987";
             try
             {
                 cipherTool.EncryptFile(emptyFileName, password);
@@ -116,7 +115,7 @@ namespace FPCrypt.cryptoUtils.Tests
         {
             try
             {
-                cipherTool.EncryptFile(fileName, password);
+                cipherTool.EncryptFile(fileName, null);
             }
             catch (Exception ex)
             {
@@ -131,11 +130,10 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void DecryptFileTestCorrectFile()
         {
-            password = "WonderFul password m8";
             plainText = File.ReadAllText(fileName);
             cipherTool.EncryptFile(fileName, password);
-            string cipherText = File.ReadAllText(fileName);
-            cipherTool.DecryptFile(fileName, password);
+            string cipherText = File.ReadAllText(newFileName);
+            cipherTool.DecryptFile(newFileName, password);
             string plainText2 = File.ReadAllText(fileName);
             Assert.AreEqual(plainText, plainText2, "Both files should be the same");
         }
@@ -144,7 +142,6 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void DecryptFileTestIncorrectFile()
         {
-            password = "WonderFul password m8";
             try
             {
                 cipherTool.DecryptFile(fileName, password);
@@ -161,16 +158,16 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void DecryptFileTestIncorrectPassword()
         {
-            password = "WonderFul password m8";
             cipherTool.EncryptFile(fileName, password);
             try
             {
-                cipherTool.DecryptFile(fileName, "Non valid password");
+                cipherTool.DecryptFile(newFileName, "Non valid password");
             }
             catch (Exception ex)
             {
                 expectedException = ex;
             }
+            cipherTool.DecryptFile(newFileName, password);
             Assert.IsNotNull(expectedException, "We should catch NotSupported exception");
             Assert.AreEqual("Fingerprints do not match", expectedException.Message,
                 "Both messages should match");
@@ -181,9 +178,8 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void DecryptFileTestDecryptedFile()
         {
-            password = "WonderFul password m8";
             cipherTool.EncryptFile(fileName, password);
-            cipherTool.DecryptFile(fileName, password);
+            cipherTool.DecryptFile(newFileName, password);
             try
             {
                 cipherTool.DecryptFile(fileName, password);
@@ -202,18 +198,33 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestMethod()]
         public void DecryptFileTestDecryptedTwoTimesFile()
         {
-            password = "WonderFul password m8";
             string originalText = File.ReadAllText(fileName);
             cipherTool.EncryptFile(fileName, password);
-            string oneTimeCipheredText = File.ReadAllText(fileName);
-            cipherTool.DecryptFile(fileName, password);
+            string oneTimeCipheredText = File.ReadAllText(newFileName);
+            cipherTool.DecryptFile(newFileName, password);
             string originalText2 = File.ReadAllText(fileName);
             cipherTool.EncryptFile(fileName, password);
-            string secondTimeCipheredText = File.ReadAllText(fileName);
-            cipherTool.DecryptFile(fileName, password);
+            string secondTimeCipheredText = File.ReadAllText(newFileName);
+            cipherTool.DecryptFile(newFileName, password);
             string originalText3 = File.ReadAllText(fileName);
             Assert.AreEqual(originalText, originalText2, originalText3, "All text should be equal");
             Assert.AreNotEqual(oneTimeCipheredText, secondTimeCipheredText, "Both text should be different");
+        }
+
+
+        [TestMethod()]
+        public void NoExtensionFileTest()
+        {
+            string noExtensionFileName = path + "file";
+            string noExtensionFileNameEncrypted = path + "file.fpc";
+            plainText = File.ReadAllText(noExtensionFileName);
+            cipherTool.EncryptFile(noExtensionFileName, password);
+            string cipherText = File.ReadAllText(noExtensionFileNameEncrypted);
+            cipherTool.DecryptFile(noExtensionFileNameEncrypted, password);
+            string plainText2 = File.ReadAllText(noExtensionFileName);
+            Assert.AreEqual(plainText, plainText2);
+            Assert.AreNotEqual(plainText2, cipherText);
+
         }
     }
 }
