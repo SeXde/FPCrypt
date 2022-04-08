@@ -7,6 +7,7 @@ namespace FPCrypt
     {
         private SerialPort serialPort;
         private const string ACK_FP = "fingerprint:";
+        private const string ACK_ALIVE = "replay";
 
         public ArduinoCom()
         {
@@ -21,6 +22,7 @@ namespace FPCrypt
 
         public string readFingerPrint()
         {
+            checkConnection();
             string readedValue = string.Empty;
             serialPort.Open();
             serialPort.Write("Get fingerprint");
@@ -38,6 +40,7 @@ namespace FPCrypt
 
         public void writeInfo(string info, string type)
         {
+            checkConnection();
             serialPort.Open();
             serialPort.Write("Show " + type + ":" + info);
             serialPort.Close();
@@ -74,9 +77,24 @@ namespace FPCrypt
 
         private void checkConnection()
         {
-            // TODO
+            serialPort.Open();
+            int timeCounter = 0;
+            int maxTimeWaiting = 10;
+            string response = string.Empty;
+            while (timeCounter < maxTimeWaiting && !ACK_ALIVE.Equals(response))
+            {
+                serialPort.Write("echo");
+                response = serialPort.ReadExisting();
+                Thread.Sleep(1000);
+                timeCounter++;
+            }
+            serialPort.Close();
+            if (timeCounter == maxTimeWaiting || !ACK_ALIVE.Equals(response))
+            {
+                throw new Exception("Cannot communicate with Arduino");
+            }
         }
-
     }
 }
+
 
