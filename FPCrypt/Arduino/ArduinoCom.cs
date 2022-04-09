@@ -1,5 +1,5 @@
 ﻿using System.IO.Ports;
-using System.Management;
+using System.Threading.Tasks;
 
 namespace FPCrypt
 {
@@ -8,9 +8,20 @@ namespace FPCrypt
         private static SerialPort serialPort;
         private static string ACK_FP = "fingerprint:";
         private static string ACK_ALIVE = "replay";
+        private static int TIME_OUT = 10;
 
 
         public static string readFingerPrint()
+        {
+            var task = Task.Run(() => doReadFingerPrint());
+            if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
+                return task.Result;
+            else
+                throw new Exception("Cannot communicate with Arduino");
+        }
+
+
+        private static string doReadFingerPrint()
         {
             setPort();
             string readedValue = string.Empty;
@@ -30,14 +41,14 @@ namespace FPCrypt
         }
 
 
-        public static void writeInfo(string info, string type)
+        private static void doWriteInfo(string info, string type)
         {
             setPort();
             string readedValue = string.Empty;
             do
             {
                 serialPort.Write("Show " + type + ":" + info);
-                Thread.Sleep(1005);
+                Thread.Sleep(1010);
                 readedValue = serialPort.ReadExisting();
             } while (!readedValue.Contains(ACK_ALIVE));
             
@@ -45,6 +56,14 @@ namespace FPCrypt
             {
                 serialPort.Close();
             }
+        }
+
+
+        public static void writeInfo(string info, string type)
+        {
+            var task = Task.Run(() => doWriteInfo(info, type));
+            if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
+                throw new Exception("Cannot communicate with Arduino"); 
         }
 
 
