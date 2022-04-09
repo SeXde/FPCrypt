@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Arduino\ArduinoCode\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
 

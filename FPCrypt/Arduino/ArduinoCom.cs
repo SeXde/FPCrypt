@@ -3,28 +3,17 @@ using System.Management;
 
 namespace FPCrypt
 {
-    public class ArduinoCom
+    public static class ArduinoCom
     {
-        private SerialPort serialPort;
-        private const string ACK_FP = "fingerprint:";
-        private const string ACK_ALIVE = "replay";
+        private static SerialPort serialPort;
+        private static string ACK_FP = "fingerprint:";
+        private static string ACK_ALIVE = "replay";
 
-        public ArduinoCom()
+
+        public static string readFingerPrint()
         {
-            string arduinoPort = AutodetectArduinoPort();
-            if (arduinoPort == null)
-            {
-                throw new Exception("Cannot find arduino port");
-            }
-            serialPort = new SerialPort(arduinoPort, 9600, Parity.None, 8, StopBits.One);
-        }
-
-
-        public string readFingerPrint()
-        {
-            checkConnection();
+            setPort();
             string readedValue = string.Empty;
-            serialPort.Open();
             serialPort.Write("Get fingerprint");
 
             do
@@ -33,65 +22,62 @@ namespace FPCrypt
                 Thread.Sleep(200);
             } while (!readedValue.Contains(ACK_FP));
 
-            serialPort.Close();
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
             return readedValue.Replace(ACK_FP, "");
         }
 
 
-        public void writeInfo(string info, string type)
+        public static void writeInfo(string info, string type)
         {
-            checkConnection();
-            serialPort.Open();
-            serialPort.Write("Show " + type + ":" + info);
-            serialPort.Close();
+            setPort();
+            string readedValue = string.Empty;
+            do
+            {
+                serialPort.Write("Show " + type + ":" + info);
+                Thread.Sleep(1005);
+                readedValue = serialPort.ReadExisting();
+            } while (!readedValue.Contains(ACK_ALIVE));
+            
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
         }
 
 
-        private string AutodetectArduinoPort()
+        private static void setPort()
         {
-            ManagementScope connectionScope = new ManagementScope();
-            SelectQuery serialQuery = new SelectQuery("SELECT * FROM Win32_SerialPort");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(connectionScope, serialQuery);
-
-            try
+            serialPort = new SerialPort();
+            serialPort.BaudRate = 9600;
+            serialPort.Parity = Parity.None;
+            serialPort.DataBits = 8;
+            serialPort.StopBits = StopBits.One;
+            int i = 0;
+            int maxPortNumber = 10;
+            Exception ex;
+            do
             {
-                foreach (ManagementObject item in searcher.Get())
+                ex = null;
+                serialPort.PortName = "COM" + i;
+                try
                 {
-                    string desc = item["Description"].ToString();
-                    string deviceId = item["DeviceID"].ToString();
-
-                    if (desc.Contains("Arduino"))
+                    serialPort.Open();
+                } catch(Exception exception)
+                {
+                    if (serialPort.IsOpen)
                     {
-                        return deviceId;
+                        serialPort.Close();
                     }
+                    ex = exception;
                 }
-            }
-            catch (ManagementException e)
+                i++;
+            } while (ex != null && i < maxPortNumber);
+            if (ex != null || i == maxPortNumber)
             {
-                // Do nothing
-            }
-
-            return null;
-        }
-
-
-        private void checkConnection()
-        {
-            serialPort.Open();
-            int timeCounter = 0;
-            int maxTimeWaiting = 10;
-            string response = string.Empty;
-            while (timeCounter < maxTimeWaiting && !ACK_ALIVE.Equals(response))
-            {
-                serialPort.Write("echo");
-                response = serialPort.ReadExisting();
-                Thread.Sleep(1000);
-                timeCounter++;
-            }
-            serialPort.Close();
-            if (timeCounter == maxTimeWaiting || !ACK_ALIVE.Equals(response))
-            {
-                throw new Exception("Cannot communicate with Arduino");
+                throw new Exception("Cannot find Arduino port");
             }
         }
     }
