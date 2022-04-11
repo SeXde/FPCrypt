@@ -15,7 +15,7 @@ namespace FPCrypt.cryptoUtils.Tests
         [TestInitialize]
         public void Setup()
         {
-            cipherTool = new CipherTool();
+            cipherTool = CipherTool.GetInstance();
             password = "WonderFul password m8";
             path = "../../../CryptoUtils/";
             fileName = path + "DummyFile.txt";
@@ -225,6 +225,19 @@ namespace FPCrypt.cryptoUtils.Tests
             Assert.AreEqual(plainText, plainText2);
             Assert.AreNotEqual(plainText2, cipherText);
 
+        }
+
+
+        [TestMethod()]
+        public void SerializeTest()
+        {
+            cipherTool.EncryptFile(fileName, password);
+            CipherTool cipherTool2 = CipherTool.GetInstance();
+            cipherTool2.DecryptFile(newFileName, password);
+            CipherTool cipherTool3 = CipherTool.GetInstance();
+            cipherTool3.EncryptFile(fileName, password);
+            cipherTool3.DecryptFile(newFileName, password);
+            cipherTool3.ClearDB();
         }
     }
 }

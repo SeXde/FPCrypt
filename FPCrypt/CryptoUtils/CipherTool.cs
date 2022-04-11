@@ -1,16 +1,52 @@
-﻿using System.Security.Cryptography;
+﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace FPCrypt.cryptoUtils
 {
+    [Serializable]
     public class CipherTool
     {
-        private IDictionary<string, (byte[], string, string)> ivFingerprintMap = new Dictionary<string, (byte[], string, string)>();
-        private SHA256 mySHA256 = SHA256.Create();
-        private Regex regex = new Regex("[.][a-zA-Z0-9]+$");
-        private MatchCollection matchCollection;
+
+        private IDictionary<string, (byte[], string, string)> ivFingerprintMap;
+        [NonSerialized]
+        private SHA256 mySHA256;
+        [NonSerialized]
         private const string fpcExtension = ".fpc";
+        [NonSerialized]
+        private const string CLASS_FILE = "CipherTool.class.bin";
+        [NonSerialized]
+        private static CipherTool instance;
+
+
+        private CipherTool()
+        {
+            mySHA256 = SHA256.Create();
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            {
+                if (stream.Length == 0)
+                {
+                    ivFingerprintMap = new Dictionary<string, (byte[], string, string)>();
+                }
+                else
+                {
+                    CipherTool saved = formatter.Deserialize(stream) as CipherTool;
+                    ivFingerprintMap = saved.GetDictionary();
+                }
+            }  
+        }
+
+        public static CipherTool GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new CipherTool();
+            }
+            return instance;
+        }
 
         public void EncryptFile(string fileName, string fingerprint)
         {
@@ -32,6 +68,11 @@ namespace FPCrypt.cryptoUtils
             File.WriteAllText(fileName, cipherText);
             string extension = getExtension(fileName);
             ivFingerprintMap.Add(Encoding.ASCII.GetString(cipherFileHash), (tuple.Item2, fingerprint, extension));
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                formatter.Serialize(stream, this);
+            }
             changeExtension(fileName, extension, fpcExtension);
         }
 
@@ -61,6 +102,11 @@ namespace FPCrypt.cryptoUtils
             string plainText = EasyAES.Decrypt(cipherText, fingerprint, iv);
             File.WriteAllText(fileName, plainText);
             ivFingerprintMap.Remove(cipherFileHashText);
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                formatter.Serialize(stream, this);
+            }
             changeExtension(fileName, fpcExtension, oldExtension);
         }
 
@@ -92,7 +138,8 @@ namespace FPCrypt.cryptoUtils
        private string getExtension(string fileName)
         {
             string extension = null;
-            matchCollection = regex.Matches(fileName);
+            Regex regex = regex = new Regex("[.][a-zA-Z0-9]+$");
+            MatchCollection matchCollection = regex.Matches(fileName);
             if (matchCollection.Count == 0)
             {
                 extension = String.Empty;
@@ -114,6 +161,19 @@ namespace FPCrypt.cryptoUtils
                 newFileName = fileName.Replace(oldExtension, newExtension);
             }
             File.Move(fileName, newFileName);
+        }
+
+        protected IDictionary<string, (byte[], string, string)> GetDictionary()
+        {
+            return ivFingerprintMap;
+        }
+
+        public void ClearDB()
+        {
+            if (File.Exists(CLASS_FILE))
+            {
+                File.Delete(CLASS_FILE);
+            }
         }
     }
 }
