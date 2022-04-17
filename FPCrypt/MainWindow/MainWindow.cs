@@ -16,5 +16,20 @@ namespace FPCrypt.MainWindow
         {
             InitializeComponent();
         }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

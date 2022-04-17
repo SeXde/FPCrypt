@@ -63,6 +63,16 @@ namespace FPCrypt.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_add_fingerprint_48px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_add_fingerprint_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_cancel_48px {
             get {
                 object obj = ResourceManager.GetObject("icons8_cancel_48px", resourceCulture);
@@ -86,6 +96,46 @@ namespace FPCrypt.Properties {
         internal static System.Drawing.Bitmap icons8_high_priority_48px {
             get {
                 object obj = ResourceManager.GetObject("icons8_high_priority_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_key_2_48px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_key_2_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_lock_48px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_lock_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_padlock_48px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_padlock_48px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_password_100px {
+            get {
+                object obj = ResourceManager.GetObject("icons8_password_100px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
