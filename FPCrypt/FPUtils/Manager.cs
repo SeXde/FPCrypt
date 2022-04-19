@@ -1,14 +1,14 @@
 public class Manager
 {
     private List<string> fingerprints;
-    private Manager instance;
+    private static Manager instance;
 
     private Manager()
     {
         fingerprints = new List<string>();
     }
 
-    public Manager()
+    public static Manager getInstance()
     {
         if(instance == null)
         {
@@ -43,7 +43,7 @@ public class Manager
 
     public void modifyFP(string oldFingerprint, string newFingerprint)
     {
-        i = fingerprints.IndexOf(oldFingerprint);
+        var i = fingerprints.IndexOf(oldFingerprint);
         if (checkFP(oldFingerprint))
         {
             fingerprints.Insert(i, newFingerprint);
@@ -57,7 +57,7 @@ public class Manager
 
     public bool checkFP(string fingerprint)
     {
-        i = fingerprints.IndexOf(oldFingerprint);
+       var i = fingerprints.IndexOf(fingerprint);
         if (i == -1)
         {
             return false;
