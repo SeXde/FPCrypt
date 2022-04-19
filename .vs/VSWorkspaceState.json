@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FPCrypt",
+    "\\FPCrypt\\Arduino",
+    "\\FPCrypt\\Arduino\\ArduinoCode",
+    "\\FPCrypt\\Arduino\\ArduinoCode\\ArduinoUno",
+    "\\FPCrypt\\CryptoUtils",
+    "\\FPCrypt\\FPUtils",
+    "\\FPCrypt\\ModalWindows",
+    "\\FPCrypt\\Properties",
+    "\\FPCrypt\\Resources"
+  ],
+  "SelectedNode": "\\FPCryptTests",
+  "PreviewInSolutionExplorer": false
+}
