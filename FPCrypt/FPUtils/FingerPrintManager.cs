@@ -2,49 +2,49 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 [Serializable]
-public class FingerPrintManager
+public class FingerprintManager
 {
-    private List<string> fingerprints;
+    private IDictionary<string, Fingerprint> fingerprints;
     [NonSerialized]
-    private static FingerPrintManager instance;
+    private static FingerprintManager instance;
     [NonSerialized]
     private const string CLASS_FILE = "FingerPrintManager.class.bin";
 
-    private FingerPrintManager()
+    private FingerprintManager()
     {
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
         {
             if (stream.Length == 0)
             {
-                fingerprints = new List<string>();
+                fingerprints = new Dictionary<string, Fingerprint>();
             }
             else
             {
-                FingerPrintManager saved = formatter.Deserialize(stream) as FingerPrintManager;
-                fingerprints = saved.getFingerprints();
+                FingerprintManager saved = formatter.Deserialize(stream) as FingerprintManager;
+                fingerprints = saved.getMap();
             }
         }
         
     }
 
-    public static FingerPrintManager getInstance()
+    public static FingerprintManager getInstance()
     {
         if(instance == null)
         {
-            instance = new FingerPrintManager();
+            instance = new FingerprintManager();
         }
         return instance;
     }
 
-    public void addFP(string fingerprint)
+    public void addFP(Fingerprint fingerprint)
     {
-        if (fingerprints.Contains(fingerprint))
+        if (fingerprints.ContainsKey(fingerprint.getFingerprintValue()))
         {
             throw new NotSupportedException("Fingerprint already exists");
 
         }
-        fingerprints.Add(fingerprint);
+        fingerprints.Add(fingerprint.getFingerprintValue(), fingerprint);
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
         {
@@ -52,9 +52,9 @@ public class FingerPrintManager
         }
     }
 
-    public void deleteFP(string fingerprint)
+    public void deleteFP(Fingerprint fingerprint)
     {
-        if (!fingerprints.Remove(fingerprint))
+        if (!fingerprints.Remove(fingerprint.getFingerprintValue()))
         {
             throw new NotSupportedException("Fingerprint not found");
         }
@@ -65,18 +65,17 @@ public class FingerPrintManager
         }
     }
 
-    public void modifyFP(string oldFingerprint, string newFingerprint)
+    public void modifyFP(Fingerprint oldFingerprint, Fingerprint newFingerprint)
     {
-        if (!fingerprints.Contains(oldFingerprint)) {
+        if (!fingerprints.ContainsKey(oldFingerprint.getFingerprintValue())) {
             throw new NotSupportedException("Old fingerprint not found");
         }
-        if (fingerprints.Contains(newFingerprint))
+        if (fingerprints.ContainsKey(newFingerprint.getFingerprintValue()))
         {
             throw new NotSupportedException("New fingerprint already exists");
         }
-        var i = fingerprints.IndexOf(oldFingerprint);
-        fingerprints.RemoveAt(i);
-        fingerprints.Insert(i, newFingerprint);
+        fingerprints.Remove(oldFingerprint.getFingerprintValue());
+        fingerprints.Add(newFingerprint.getFingerprintValue(), newFingerprint);
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
         {
@@ -84,14 +83,19 @@ public class FingerPrintManager
         }
     }
 
-    protected List<string> getFingerprints()
+    protected IDictionary<string, Fingerprint> getMap()
     {
         return fingerprints;
     }
 
-    public Boolean isPresent(string fingerprint)
+    public Boolean isPresent(string fingerprintValue)
     {
-        return fingerprints.Contains(fingerprint);
+        return fingerprints.ContainsKey(fingerprintValue);
+    }
+
+    public List<Fingerprint> getFingerprints()
+    {
+        return fingerprints.Values.ToList();
     }
 
 }

@@ -6,12 +6,12 @@ namespace Tests
     public class FingerPrintManagerTests
     {
 
-        private FingerPrintManager fingerPrintManager;
+        private FingerprintManager fingerPrintManager;
 
         [TestInitialize]
         public void Setup()
         {
-            fingerPrintManager = FingerPrintManager.getInstance();
+            fingerPrintManager = FingerprintManager.getInstance();
         }
 
         [TestMethod()]
