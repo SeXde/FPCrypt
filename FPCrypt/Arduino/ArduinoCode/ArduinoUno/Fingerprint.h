@@ -5,6 +5,8 @@
 // Set up the serial port to use softwareserial..
 SoftwareSerial mySerial(2, 3);
 
+#define MAX_FINGER_TRIES 10000
+
 class Fingerprint
 {
 	Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
@@ -34,17 +36,19 @@ public:
 
 	bool registerFingerprint(uint8_t id)
 	{
-		Serial.print("--- Waiting for valid finger to enroll as #");
-		Serial.print(id);
-		Serial.println(" ---");
+		int status = -1;
 
-		if (!takeFingerImage())
+		status = takeFingerImage();
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
-		if (imageTz(1) != FINGERPRINT_OK)
+		status = imageTz(1);
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
@@ -56,25 +60,33 @@ public:
 		Serial.println("Put the finger again");
 		delay(3000);
 
-		if (!takeFingerImage())
+		status = takeFingerImage();
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
-		if (imageTz(2) != FINGERPRINT_OK)
+		status = imageTz(2);
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
 		Serial.println("--- Creating model ---");
 
-		if (createModel() != FINGERPRINT_OK)
+		status = createModel();
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
-		if (storeModel(id) != FINGERPRINT_OK)
+		status = storeModel(id);
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return false;
 		}
 
@@ -83,18 +95,26 @@ public:
 
 	Adafruit_Fingerprint *scanFingerprint()
 	{
-		if (!takeFingerImage())
+		int status = -1;
+
+		status = takeFingerImage();
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return nullptr;
 		}
 
-		if (imageTz(1) != FINGERPRINT_OK)
+		status = imageTz(1);
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return nullptr;
 		}
 
-		if (searchFinger() != FINGERPRINT_OK)
+		status = searchFinger();
+		if (status != FINGERPRINT_OK)
 		{
+			printError(status);
 			return nullptr;
 		}
 
@@ -147,136 +167,57 @@ private:
 		return num;
 	}
 
-	bool takeFingerImage()
+	int takeFingerImage()
 	{
 		int p = -1;
+		int tries = 0;
 
 		while (p != FINGERPRINT_OK)
 		{
 			p = finger.getImage();
 
-			switch (p)
+			if (p == FINGERPRINT_NOFINGER)
 			{
-			case FINGERPRINT_OK:
-				Serial.println("Image taken");
-				break;
-
-			case FINGERPRINT_NOFINGER:
 				Serial.println(".");
-				break;
+			}
+			else
+			{
+				tries++;
 
-			case FINGERPRINT_PACKETRECIEVEERR:
-				Serial.println("Communication error");
-				break;
-
-			case FINGERPRINT_IMAGEFAIL:
-				Serial.println("Imaging error");
-				break;
-
-			default:
-				Serial.println("Unknown error");
-				break;
+				if (tries > MAX_FINGER_TRIES)
+				{
+					return FINGERPRINT_NOFINGER;
+				}
 			}
 		}
 
-		return true;
+		return FINGERPRINT_OK;
 	}
 
 	int imageTz(int index)
 	{
-		int p = finger.image2Tz(index);
-		switch (p)
-		{
-		case FINGERPRINT_OK:
-			Serial.println("Image converted");
-			return FINGERPRINT_OK;
-
-		case FINGERPRINT_IMAGEMESS:
-			Serial.println("Image too messy");
-			return p;
-
-		case FINGERPRINT_PACKETRECIEVEERR:
-			Serial.println("Communication error");
-			return p;
-
-		case FINGERPRINT_FEATUREFAIL:
-			Serial.println("Could not find fingerprint features");
-			return p;
-
-		case FINGERPRINT_INVALIDIMAGE:
-			Serial.println("Could not find fingerprint features");
-			return p;
-
-		default:
-			Serial.println("Unknown error");
-			return p;
-		}
+		return finger.image2Tz(index);
 	}
 
 	int createModel()
 	{
-		int p = finger.createModel();
-
-		switch (p)
-		{
-		case FINGERPRINT_OK:
-			Serial.println("Prints matched!");
-			break;
-
-		case FINGERPRINT_PACKETRECIEVEERR:
-			Serial.println("Communication error");
-			break;
-
-		case FINGERPRINT_ENROLLMISMATCH:
-			Serial.println("Fingerprints did not match");
-			break;
-
-		default:
-			Serial.println("Unknown error");
-			break;
-		}
-
-		return p;
+		return finger.createModel();
 	}
 
 	int storeModel(uint8_t id)
 	{
-		int p = finger.storeModel(id);
-
-		switch (p)
-		{
-		case FINGERPRINT_OK:
-			Serial.println("Stored!");
-			return p;
-
-		case FINGERPRINT_PACKETRECIEVEERR:
-			Serial.println("Communication error");
-			return p;
-
-		case FINGERPRINT_BADLOCATION:
-			Serial.println("Could not store in that location");
-			return p;
-
-		case FINGERPRINT_FLASHERR:
-			Serial.println("Error writing to flash");
-			return p;
-
-		default:
-			Serial.println("Unknown error");
-			return p;
-		}
+		return finger.storeModel(id);
 	}
 
 	int searchFinger()
 	{
-		int p = finger.fingerSearch();
+		return finger.fingerSearch();
+	}
 
-		switch (p)
+	void printError(int fingerprintErrorCode)
+	{
+		switch (fingerprintErrorCode)
 		{
-		case FINGERPRINT_OK:
-			Serial.println("Found a print match!");
-			break;
-
 		case FINGERPRINT_PACKETRECIEVEERR:
 			Serial.println("Communication error");
 			break;
@@ -285,11 +226,41 @@ private:
 			Serial.println("Did not find a match");
 			break;
 
+		case FINGERPRINT_BADLOCATION:
+			Serial.println("Could not store in that location");
+			break;
+
+		case FINGERPRINT_FLASHERR:
+			Serial.println("Error writing to flash");
+			break;
+
+		case FINGERPRINT_ENROLLMISMATCH:
+			Serial.println("Fingerprints did not match");
+			break;
+
+		case FINGERPRINT_IMAGEMESS:
+			Serial.println("Image too messy");
+			break;
+
+		case FINGERPRINT_FEATUREFAIL:
+			Serial.println("Could not find fingerprint features");
+			break;
+
+		case FINGERPRINT_INVALIDIMAGE:
+			Serial.println("Could not find fingerprint features");
+			break;
+
+		case FINGERPRINT_NOFINGER:
+			Serial.println("No finger detected");
+			break;
+
+		case FINGERPRINT_IMAGEFAIL:
+			Serial.println("Imaging error");
+			break;
+
 		default:
 			Serial.println("Unknown error");
 			break;
 		}
-
-		return p;
 	}
 };
