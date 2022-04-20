@@ -13,7 +13,7 @@ public class FingerPrintManager
     private FingerPrintManager()
     {
         IFormatter formatter = new BinaryFormatter();
-        using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+        using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
         {
             if (stream.Length == 0)
             {
@@ -45,6 +45,11 @@ public class FingerPrintManager
 
         }
         fingerprints.Add(fingerprint);
+        IFormatter formatter = new BinaryFormatter();
+        using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+        {
+            formatter.Serialize(stream, this);
+        }
     }
 
     public void deleteFP(string fingerprint)
@@ -52,6 +57,11 @@ public class FingerPrintManager
         if (!fingerprints.Remove(fingerprint))
         {
             throw new NotSupportedException("Fingerprint not found");
+        }
+        IFormatter formatter = new BinaryFormatter();
+        using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+        {
+            formatter.Serialize(stream, this);
         }
     }
 
@@ -67,6 +77,11 @@ public class FingerPrintManager
         var i = fingerprints.IndexOf(oldFingerprint);
         fingerprints.RemoveAt(i);
         fingerprints.Insert(i, newFingerprint);
+        IFormatter formatter = new BinaryFormatter();
+        using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+        {
+            formatter.Serialize(stream, this);
+        }
     }
 
     protected List<string> getFingerprints()
