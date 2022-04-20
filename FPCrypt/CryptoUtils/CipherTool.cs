@@ -25,7 +25,7 @@ namespace FPCrypt.cryptoUtils
         {
             mySHA256 = SHA256.Create();
             IFormatter formatter = new BinaryFormatter();
-            using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (Stream stream = new FileStream(CLASS_FILE, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
             {
                 if (stream.Length == 0)
                 {
