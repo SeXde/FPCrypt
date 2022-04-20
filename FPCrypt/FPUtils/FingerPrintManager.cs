@@ -89,4 +89,9 @@ public class FingerPrintManager
         return fingerprints;
     }
 
+    public Boolean isPresent(string fingerprint)
+    {
+        return fingerprints.Contains(fingerprint);
+    }
+
 }
