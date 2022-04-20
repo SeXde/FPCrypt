@@ -58,7 +58,11 @@ public class FingerPrintManager
     public void modifyFP(string oldFingerprint, string newFingerprint)
     {
         if (!fingerprints.Contains(oldFingerprint)) {
-            throw new NotSupportedException("Fingerprint not found");
+            throw new NotSupportedException("Old fingerprint not found");
+        }
+        if (fingerprints.Contains(newFingerprint))
+        {
+            throw new NotSupportedException("New fingerprint already exists");
         }
         var i = fingerprints.IndexOf(oldFingerprint);
         fingerprints.RemoveAt(i);
