@@ -11,6 +11,7 @@ void setup()
 
 void loop()
 {
+	/*
 	String readedString = Serial.readString();
 	if (readedString.indexOf("Get fingerprint") != -1)
 	{
@@ -21,6 +22,18 @@ void loop()
 		Serial.print("replay");
 	}
 	Serial.flush();
+	*/
+	registerFingerprint();
+
+	delay(2500);
+
+	Adafruit_Fingerprint *adaFP = fingerprintHandler.scanFingerprint();
+	if (adaFP != nullptr)
+	{
+		Serial.print("Finger #");
+		Serial.print(adaFP->fingerID);
+		Serial.println(" detected!");
+	}
 }
 
 void registerFingerprint()

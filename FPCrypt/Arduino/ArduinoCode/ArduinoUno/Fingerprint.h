@@ -5,10 +5,9 @@
 // Set up the serial port to use softwareserial..
 SoftwareSerial mySerial(2, 3);
 
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-
 class Fingerprint
 {
+	Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
 public:
 	void setup()
@@ -50,9 +49,12 @@ public:
 		}
 
 		Serial.println("Remove finger");
-		delay(2000);
+		delay(3000);
 
 		waitForNoFinger();
+
+		Serial.println("Put the finger again");
+		delay(3000);
 
 		if (!takeFingerImage())
 		{
@@ -77,6 +79,26 @@ public:
 		}
 
 		return true;
+	}
+
+	Adafruit_Fingerprint *scanFingerprint()
+	{
+		if (!takeFingerImage())
+		{
+			return nullptr;
+		}
+
+		if (imageTz(1) != FINGERPRINT_OK)
+		{
+			return nullptr;
+		}
+
+		if (searchFinger() != FINGERPRINT_OK)
+		{
+			return nullptr;
+		}
+
+		return &finger;
 	}
 
 	void waitForNoFinger()
@@ -243,5 +265,31 @@ private:
 			Serial.println("Unknown error");
 			return p;
 		}
+	}
+
+	int searchFinger()
+	{
+		int p = finger.fingerSearch();
+
+		switch (p)
+		{
+		case FINGERPRINT_OK:
+			Serial.println("Found a print match!");
+			break;
+
+		case FINGERPRINT_PACKETRECIEVEERR:
+			Serial.println("Communication error");
+			break;
+
+		case FINGERPRINT_NOTFOUND:
+			Serial.println("Did not find a match");
+			break;
+
+		default:
+			Serial.println("Unknown error");
+			break;
+		}
+
+		return p;
 	}
 };
