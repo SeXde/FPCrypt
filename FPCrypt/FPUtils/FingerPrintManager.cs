@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class FingerprintManager
 {
     private IDictionary<string, Fingerprint> fingerprints;
+    private int fingerprintCurrId;
     [NonSerialized]
     private static FingerprintManager instance;
     [NonSerialized]
@@ -18,11 +19,14 @@ public class FingerprintManager
             if (stream.Length == 0)
             {
                 fingerprints = new Dictionary<string, Fingerprint>();
+                fingerprintCurrId = 1;
             }
             else
             {
                 FingerprintManager saved = formatter.Deserialize(stream) as FingerprintManager;
                 fingerprints = saved.getMap();
+                fingerprintCurrId = saved.getCurrentId();
+
             }
         }
         
@@ -45,6 +49,7 @@ public class FingerprintManager
 
         }
         fingerprints.Add(fingerprint.getFingerprintValue(), fingerprint);
+        fingerprintCurrId++;
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
         {
@@ -86,6 +91,11 @@ public class FingerprintManager
     protected IDictionary<string, Fingerprint> getMap()
     {
         return fingerprints;
+    }
+
+    public int getCurrentId()
+    {
+        return fingerprintCurrId;
     }
 
     public Boolean isPresent(string fingerprintValue)
