@@ -2,17 +2,28 @@
 
 namespace FPCrypt
 {
+    public delegate void Notify(string message);
     public static class ArduinoCom
     {
         private static SerialPort serialPort;
         private static string ACK_FP = "fingerprint:";
         private static string ACK_ALIVE = "replay";
         private static int TIME_OUT = 50;
+        public static event Notify fingerprintEvents;
 
 
         public static string readFingerPrint()
         {
             var task = Task.Run(() => doReadFingerPrint());
+            if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
+                return task.Result;
+            else
+                throw new Exception("Timeout");
+        }
+
+        public static string registerFingerPrint(int id)
+        {
+            var task = Task.Run(() => doRegisterFingerprint(id));
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
@@ -38,6 +49,27 @@ namespace FPCrypt
                 serialPort.Close();
             }
             return readedValue.Replace(ACK_FP, "").Trim();
+        }
+
+        private static string doRegisterFingerprint(int id)
+        {
+            setPort();
+            string readedValue = string.Empty;
+            serialPort.Write("Register fingerprint:" + id);
+
+            do
+            {
+                Thread.Sleep(500);
+                readedValue = serialPort.ReadExisting();
+                fingerprintEvents.Invoke(readedValue);
+            } while (!readedValue.Contains(ACK_FP));
+
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+            return readedValue.Replace(ACK_FP, "").Trim();
+
         }
 
 
