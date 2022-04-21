@@ -1,5 +1,4 @@
 ﻿using System.IO.Ports;
-using System.Threading.Tasks;
 
 namespace FPCrypt
 {
@@ -8,7 +7,7 @@ namespace FPCrypt
         private static SerialPort serialPort;
         private static string ACK_FP = "fingerprint:";
         private static string ACK_ALIVE = "replay";
-        private static int TIME_OUT = 10;
+        private static int TIME_OUT = 50;
 
 
         public static string readFingerPrint()
@@ -17,7 +16,7 @@ namespace FPCrypt
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
-                throw new Exception("Cannot communicate with Arduino");
+                throw new Exception("Timeout");
         }
 
 
@@ -29,15 +28,16 @@ namespace FPCrypt
 
             do
             {
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                Thread.Sleep(200);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP));
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
-            return readedValue.Replace(ACK_FP, "");
+            return readedValue.Replace(ACK_FP, "").Trim();
         }
 
 
@@ -51,7 +51,7 @@ namespace FPCrypt
                 Thread.Sleep(1010);
                 readedValue = serialPort.ReadExisting();
             } while (!readedValue.Contains(ACK_ALIVE));
-            
+
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
@@ -63,7 +63,7 @@ namespace FPCrypt
         {
             var task = Task.Run(() => doWriteInfo(info, type));
             if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
-                throw new Exception("Cannot communicate with Arduino"); 
+                throw new Exception("Cannot communicate with Arduino");
         }
 
 
@@ -84,7 +84,8 @@ namespace FPCrypt
                 try
                 {
                     serialPort.Open();
-                } catch(Exception exception)
+                }
+                catch (Exception exception)
                 {
                     if (serialPort.IsOpen)
                     {
@@ -101,5 +102,3 @@ namespace FPCrypt
         }
     }
 }
-
-

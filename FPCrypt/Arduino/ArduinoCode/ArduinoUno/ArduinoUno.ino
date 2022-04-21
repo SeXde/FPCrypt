@@ -1,3 +1,4 @@
+#include <Adafruit_Fingerprint.h>
 #include "Fingerprint.h"
 
 Fingerprint fingerprintHandler = Fingerprint();
@@ -5,35 +6,38 @@ Fingerprint fingerprintHandler = Fingerprint();
 void setup()
 {
 	Serial.begin(9600);
+ pinMode(10, OUTPUT);
 
 	fingerprintHandler.setup();
 }
 
 void loop()
 {
-	/*
+
 	String readedString = Serial.readString();
 	if (readedString.indexOf("Get fingerprint") != -1)
 	{
-		Serial.print("fingerprint:klk");
+    digitalWrite(10, HIGH);
+
+    bool found = false;
+    while (!found) {
+      Adafruit_Fingerprint *adaFP = fingerprintHandler.scanFingerprint();
+      if (adaFP != nullptr)
+      {
+        Serial.print("fingerprint:");
+        Serial.print(adaFP->fingerID);
+
+        found = true;
+      }
+    }
+
+   digitalWrite(10, LOW);
 	}
 	else if (readedString.indexOf("Show") != -1)
 	{
 		Serial.print("replay");
 	}
 	Serial.flush();
-	*/
-	registerFingerprint();
-
-	delay(2500);
-
-	Adafruit_Fingerprint *adaFP = fingerprintHandler.scanFingerprint();
-	if (adaFP != nullptr)
-	{
-		Serial.print("Finger #");
-		Serial.print(adaFP->fingerID);
-		Serial.println(" detected!");
-	}
 }
 
 void registerFingerprint()
