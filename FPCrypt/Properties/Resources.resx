@@ -118,13 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icons8_error_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\icons8_error_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_cancel_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_cancel_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_key_2_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_key_2_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_lock_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_lock_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="padlock-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\padlock-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="padlock-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\padlock-2-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-fingerprint-accepted-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8-fingerprint-accepted-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_add_fingerprint_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_add_fingerprint_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_high_priority_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_high_priority_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="key-5-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\key-5-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_error_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_error_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_padlock_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_padlock_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_password_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8_password_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-touch-id-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8-touch-id-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
