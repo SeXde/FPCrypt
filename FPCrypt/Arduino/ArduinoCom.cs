@@ -8,6 +8,8 @@ namespace FPCrypt
         private static SerialPort serialPort;
         private static string ACK_FP = "fingerprint:";
         private static string ACK_ALIVE = "replay";
+        private static string ACK_DELETE = "done";
+        private static string ACK_ERROR = "error";
         private static int TIME_OUT = 50;
         public static event Notify fingerprintEvents;
 
@@ -30,6 +32,24 @@ namespace FPCrypt
                 throw new Exception("Timeout");
         }
 
+        public static void deleteFingerPrint(int id)
+        {
+            var task = Task.Run(() => doDeleteFingerprint(id));
+            if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
+            {
+                throw new Exception("Timeout");
+            }
+        }
+
+        public static void clear()
+        {
+            var task = Task.Run(() => doClear());
+            if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
+            {
+                throw new Exception("Timeout");
+            }
+        }
+
 
         private static string doReadFingerPrint()
         {
@@ -41,8 +61,13 @@ namespace FPCrypt
             {
                 Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                Console.WriteLine(readedValue);
-            } while (!readedValue.Contains(ACK_FP));
+                fingerprintEvents.Invoke(readedValue);
+            } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                throw new Exception("Error trying to read fingerprint");
+            }
 
             if (serialPort.IsOpen)
             {
@@ -62,7 +87,12 @@ namespace FPCrypt
                 Thread.Sleep(500);
                 readedValue = serialPort.ReadExisting();
                 fingerprintEvents.Invoke(readedValue);
-            } while (!readedValue.Contains(ACK_FP));
+            } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                throw new Exception("Error trying to register fingerprint");
+            }
 
             if (serialPort.IsOpen)
             {
@@ -72,6 +102,55 @@ namespace FPCrypt
 
         }
 
+        private static void doDeleteFingerprint(int id)
+        {
+            setPort();
+            string readedValue = string.Empty;
+            serialPort.Write("Delete fingerprint:" + id);
+
+            do
+            {
+                Thread.Sleep(500);
+                readedValue = serialPort.ReadExisting();
+                fingerprintEvents.Invoke(readedValue);
+            } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                throw new Exception("Error trying to delete fingerprint");
+            }
+
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
+        }
+
+        private static void doClear()
+        {
+            setPort();
+            string readedValue = string.Empty;
+            serialPort.Write("Clear");
+
+            do
+            {
+                Thread.Sleep(500);
+                readedValue = serialPort.ReadExisting();
+                fingerprintEvents.Invoke(readedValue);
+            } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                throw new Exception("Error trying to clear db");
+            }
+
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
+        }
 
         private static void doWriteInfo(string info, string type)
         {
@@ -82,7 +161,13 @@ namespace FPCrypt
                 serialPort.Write("Show " + type + ":" + info);
                 Thread.Sleep(1010);
                 readedValue = serialPort.ReadExisting();
-            } while (!readedValue.Contains(ACK_ALIVE));
+                fingerprintEvents.Invoke(readedValue);
+            } while (!readedValue.Contains(ACK_ALIVE) && !readedValue.Contains(ACK_ERROR));
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                throw new Exception("Error trying to write info");
+            }
 
             if (serialPort.IsOpen)
             {
