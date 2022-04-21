@@ -1,12 +1,20 @@
 public class MasterPasswordManager
 {
-    private string masterpassword { get; }
+    private string masterpassword;
+    private static MasterPasswordManager instance;
 
-    public MasterPasswordManager(string password)
+    public MasterPasswordManager()
     {
-        masterpassword = password;
     }
 
+    public static MasterPasswordManager getInstance()
+    {
+        if (instance == null) {
+            instance = new MasterPasswordManager();
+            //TODO DESERIALIZE HERE
+        }
+        return instance;
+    }
 
     public bool checkMasterpassword(string MP)
     {
