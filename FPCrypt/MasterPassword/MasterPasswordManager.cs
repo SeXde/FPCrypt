@@ -1,6 +1,6 @@
 public class MasterPasswordManager
 {
-    private string masterpassword;
+    private string masterpassword { set; get;}
     private static MasterPasswordManager instance;
 
     public MasterPasswordManager()
