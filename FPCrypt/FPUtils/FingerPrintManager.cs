@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class FingerprintManager
 {
     private IDictionary<string, Fingerprint> fingerprints;
+    private HashSet<string> fingerprintNames;
     private int fingerprintCurrId;
     [NonSerialized]
     private static FingerprintManager instance;
@@ -20,12 +21,14 @@ public class FingerprintManager
             {
                 fingerprints = new Dictionary<string, Fingerprint>();
                 fingerprintCurrId = 1;
+                fingerprintNames = new HashSet<string>();
             }
             else
             {
                 FingerprintManager saved = formatter.Deserialize(stream) as FingerprintManager;
                 fingerprints = saved.getMap();
                 fingerprintCurrId = saved.getCurrentId();
+                fingerprintNames = getNames();
 
             }
         }
@@ -49,6 +52,7 @@ public class FingerprintManager
 
         }
         fingerprints.Add(fingerprint.getFingerprintValue(), fingerprint);
+        fingerprintNames.Add(fingerprint.getName());
         fingerprintCurrId++;
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -63,6 +67,7 @@ public class FingerprintManager
         {
             throw new NotSupportedException("Fingerprint not found");
         }
+        fingerprintNames.Remove(fingerprint.getName());
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
         {
@@ -81,6 +86,8 @@ public class FingerprintManager
         }
         fingerprints.Remove(oldFingerprint.getFingerprintValue());
         fingerprints.Add(newFingerprint.getFingerprintValue(), newFingerprint);
+        fingerprintNames.Remove(oldFingerprint.getName());
+        fingerprintNames.Add(newFingerprint.getName());
         IFormatter formatter = new BinaryFormatter();
         using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
         {
@@ -91,6 +98,11 @@ public class FingerprintManager
     protected IDictionary<string, Fingerprint> getMap()
     {
         return fingerprints;
+    }
+
+    protected HashSet<string> getNames()
+    {
+        return fingerprintNames;
     }
 
     public int getCurrentId()
@@ -106,6 +118,15 @@ public class FingerprintManager
     public List<Fingerprint> getFingerprints()
     {
         return fingerprints.Values.ToList();
+    }
+
+    public Boolean isPickable(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new ArgumentNullException("name");
+        }
+        return !fingerprintNames.Contains(name);
     }
 
 }

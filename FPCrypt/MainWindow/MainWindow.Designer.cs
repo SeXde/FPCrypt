@@ -145,6 +145,7 @@
             this.btnFingerPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFingerPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFingerPrint.UseVisualStyleBackColor = true;
+            this.btnFingerPrint.Click += new System.EventHandler(this.btnFingerPrint_Click);
             // 
             // btnUnlock
             // 

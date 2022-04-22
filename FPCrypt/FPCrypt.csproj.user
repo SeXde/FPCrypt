@@ -4,6 +4,9 @@
     <Compile Update="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainWindow\AddFingerPrintWindow\AddFingerpirntForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MainWindow\DecryptWindow\DecryptForm.cs">
       <SubType>Form</SubType>
     </Compile>

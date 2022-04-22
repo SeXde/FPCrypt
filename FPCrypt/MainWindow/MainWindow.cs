@@ -82,5 +82,10 @@ namespace FPCrypt.MainWindow
         {
             new DecryptWindow.DecryptForm().ShowDialog();
         }
+
+        private void btnFingerPrint_Click(object sender, EventArgs e)
+        {
+            new AddFingerPrintWindow.AddFingerpirntForm().ShowDialog();
+        }
     }
 }
