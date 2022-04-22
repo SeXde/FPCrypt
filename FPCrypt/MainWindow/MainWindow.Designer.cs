@@ -31,12 +31,14 @@
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btnUnlock = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
-            this.btnFingerPrint = new System.Windows.Forms.Button();
             this.btnPassword = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.btnFingerPrint = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTitle.SuspendLayout();
@@ -45,9 +47,11 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.Navy;
+            this.panelMenu.Controls.Add(this.button2);
+            this.panelMenu.Controls.Add(this.button1);
+            this.panelMenu.Controls.Add(this.btnFingerPrint);
             this.panelMenu.Controls.Add(this.btnUnlock);
             this.panelMenu.Controls.Add(this.btnLock);
-            this.panelMenu.Controls.Add(this.btnFingerPrint);
             this.panelMenu.Controls.Add(this.btnPassword);
             this.panelMenu.Controls.Add(this.panelLogo);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -65,7 +69,7 @@
             this.btnUnlock.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnUnlock.Image = global::FPCrypt.Properties.Resources.padlock_2_48;
             this.btnUnlock.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUnlock.Location = new System.Drawing.Point(0, 260);
+            this.btnUnlock.Location = new System.Drawing.Point(0, 200);
             this.btnUnlock.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.btnUnlock.Name = "btnUnlock";
             this.btnUnlock.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
@@ -85,7 +89,7 @@
             this.btnLock.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnLock.Image = global::FPCrypt.Properties.Resources.padlock_48;
             this.btnLock.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLock.Location = new System.Drawing.Point(0, 200);
+            this.btnLock.Location = new System.Drawing.Point(0, 140);
             this.btnLock.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.btnLock.Name = "btnLock";
             this.btnLock.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
@@ -95,27 +99,6 @@
             this.btnLock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLock.UseVisualStyleBackColor = true;
-            // 
-            // btnFingerPrint
-            // 
-            this.btnFingerPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFingerPrint.FlatAppearance.BorderSize = 0;
-            this.btnFingerPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFingerPrint.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnFingerPrint.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnFingerPrint.Image = global::FPCrypt.Properties.Resources.icons8_touch_id_48;
-            this.btnFingerPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFingerPrint.Location = new System.Drawing.Point(0, 140);
-            this.btnFingerPrint.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.btnFingerPrint.Name = "btnFingerPrint";
-            this.btnFingerPrint.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnFingerPrint.Size = new System.Drawing.Size(228, 60);
-            this.btnFingerPrint.TabIndex = 2;
-            this.btnFingerPrint.Text = "  Add fingerprint";
-            this.btnFingerPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFingerPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnFingerPrint.UseVisualStyleBackColor = true;
-            this.btnFingerPrint.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // btnPassword
             // 
@@ -185,6 +168,66 @@
             this.labelTitle.Text = "Fingerprint manager";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnFingerPrint
+            // 
+            this.btnFingerPrint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnFingerPrint.FlatAppearance.BorderSize = 0;
+            this.btnFingerPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFingerPrint.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnFingerPrint.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnFingerPrint.Image = global::FPCrypt.Properties.Resources.icons8_touch_id_48;
+            this.btnFingerPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFingerPrint.Location = new System.Drawing.Point(0, 260);
+            this.btnFingerPrint.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
+            this.btnFingerPrint.Name = "btnFingerPrint";
+            this.btnFingerPrint.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnFingerPrint.Size = new System.Drawing.Size(228, 60);
+            this.btnFingerPrint.TabIndex = 5;
+            this.btnFingerPrint.Text = "  Add fingerprint";
+            this.btnFingerPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFingerPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnFingerPrint.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button1.Image = global::FPCrypt.Properties.Resources.delete_48;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(0, 320);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(228, 60);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "  Delete fingerprint";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.button2.Image = global::FPCrypt.Properties.Resources.edit_2_48;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(0, 380);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(228, 60);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "  Edit fingerprint";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -212,9 +255,11 @@
         private Button btnPassword;
         private Button btnUnlock;
         private Button btnLock;
-        private Button btnFingerPrint;
         private Label label1;
         private Panel panelTitle;
         private Label labelTitle;
+        private Button button2;
+        private Button button1;
+        private Button btnFingerPrint;
     }
 }
