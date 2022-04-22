@@ -83,6 +83,16 @@ namespace FPCrypt.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fingerprint_white_outline_on_black_background {
+            get {
+                object obj = ResourceManager.GetObject("fingerprint-white-outline-on-black-background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_add_fingerprint_48px {
             get {
                 object obj = ResourceManager.GetObject("icons8_add_fingerprint_48px", resourceCulture);
@@ -166,6 +176,16 @@ namespace FPCrypt.Properties {
         internal static System.Drawing.Bitmap icons8_password_100px {
             get {
                 object obj = ResourceManager.GetObject("icons8_password_100px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_touch_id_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-touch-id-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
