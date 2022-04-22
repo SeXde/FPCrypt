@@ -6,7 +6,6 @@ Fingerprint fingerprintHandler = Fingerprint();
 void setup()
 {
 	Serial.begin(9600);
-	pinMode(10, OUTPUT);
 
 	fingerprintHandler.setup();
 }
@@ -17,8 +16,8 @@ void loop()
 
 	if (readedString.indexOf("Get fingerprint") != -1)
 	{
-		digitalWrite(10, HIGH);
 
+    Serial.println("Trying to get fingerprint");
 		bool found = false;
 		while (!found)
 		{
@@ -36,16 +35,16 @@ void loop()
 	}
 	else if (readedString.startsWith("Register fingerprint:"))
 	{
-		digitalWrite(10, HIGH);
 
 		const int idStartIndex = readedString.indexOf(":");
-		const int id = readedString.substring(idStartIndex).toInt();
+		const int id = readedString.substring(idStartIndex + 1).toInt();
+    Serial.println(String("Registering fingerprint: ") + id);
 
 		const int status = fingerprintHandler.registerFingerprint(id);
 
 		if (status == FINGERPRINT_OK)
 		{
-			Serial.println(String("fingerprint:") + status);
+			Serial.println(String("fingerprint:") + id);
 		}
 		else
 		{
@@ -57,8 +56,9 @@ void loop()
 	else if (readedString.startsWith("Delete fingerprint:"))
 	{
 		const int idStartIndex = readedString.indexOf(":");
-		const int id = readedString.substring(idStartIndex).toInt();
-
+		const int id = readedString.substring(idStartIndex + 1).toInt();
+    Serial.println(String("Deleting fingerprint: ") + id);
+    
 		const int status = fingerprintHandler.deleteFingerprint(id);
 
 		if (status != FINGERPRINT_OK)
@@ -70,8 +70,9 @@ void loop()
 			Serial.println("done");
 		}
 	}
-	else if (readedString.equals("Clear"))
+	else if (readedString.indexOf("Clear") != -1)
 	{
+    Serial.println("Clearing all fingerprints");
 		fingerprintHandler.deleteAllFingerprints();
 
 		Serial.println("done");
