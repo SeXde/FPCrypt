@@ -185,6 +185,7 @@
             this.btnLock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLock.UseVisualStyleBackColor = true;
+            this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
             // 
             // btnPassword
             // 

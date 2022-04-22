@@ -69,9 +69,13 @@ namespace FPCrypt.MainWindow
 
         private void btnPassword_Click(object sender, EventArgs e)
         {
-            var passwordForm = new PasswordWindow.PasswordForm();
-            passwordForm.ShowDialog();
+            new PasswordWindow.PasswordForm().ShowDialog();
 
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+           new EncryptWindow.EncryptForm().ShowDialog();
         }
     }
 }

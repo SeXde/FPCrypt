@@ -148,11 +148,17 @@
   <data name="icons8_lock_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_lock_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="report-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\report-3-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_password_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_password_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_high_priority_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_high_priority_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-acerca-de-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8-acerca-de-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_add_fingerprint_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8_add_fingerprint_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,7 +175,7 @@
   <data name="key-5-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\key-5-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-acerca-de-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\icons8-acerca-de-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="report-3-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\report-3-24.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
