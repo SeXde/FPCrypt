@@ -8,25 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FPCrypt.MainWindow.EncryptWindow
+namespace FPCrypt.MainWindow.DecryptWindow
 {
-    public partial class EncryptForm : Form
+    public partial class DecryptForm : Form
     {
-        public EncryptForm()
+        public DecryptForm()
         {
             InitializeComponent();
-            this.labelError.Text = "";
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            labelError.Text = "";
         }
 
         private void btnFld_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "All files (*.*)|*.*";
+            ofd.Filter = "FPCrypt files (*.fpc)|.fpc";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 textPath.Text = ofd.FileName;
@@ -39,21 +34,12 @@ namespace FPCrypt.MainWindow.EncryptWindow
             if (string.IsNullOrEmpty(textPath.Text))
             {
                 labelError.Text = "File path cannot be empty";
-            } else
+            }
+            else
             {
                 var fingerprintManager = FingerprintManager.getInstance();
                 // TODO call arduino window
             }
-        }
-
-        private void labelError_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textPath_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

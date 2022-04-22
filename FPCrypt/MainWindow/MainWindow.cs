@@ -77,5 +77,10 @@ namespace FPCrypt.MainWindow
         {
            new EncryptWindow.EncryptForm().ShowDialog();
         }
+
+        private void btnUnlock_Click(object sender, EventArgs e)
+        {
+            new DecryptWindow.DecryptForm().ShowDialog();
+        }
     }
 }

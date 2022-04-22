@@ -53,6 +53,7 @@
             this.textPath.Name = "textPath";
             this.textPath.Size = new System.Drawing.Size(158, 23);
             this.textPath.TabIndex = 1;
+            this.textPath.TextChanged += new System.EventHandler(this.textPath_TextChanged);
             // 
             // btnFld
             // 
@@ -76,6 +77,7 @@
             this.labelError.Size = new System.Drawing.Size(38, 17);
             this.labelError.TabIndex = 3;
             this.labelError.Text = "error";
+            this.labelError.Click += new System.EventHandler(this.labelError_Click);
             // 
             // button2
             // 

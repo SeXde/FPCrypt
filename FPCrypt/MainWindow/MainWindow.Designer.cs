@@ -165,6 +165,7 @@
             this.btnUnlock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUnlock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnUnlock.UseVisualStyleBackColor = true;
+            this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
             // 
             // btnLock
             // 
