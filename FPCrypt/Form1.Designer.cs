@@ -40,19 +40,22 @@
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.PlaceholderText = "Password";
-            this.PasswordTextBox.Size = new System.Drawing.Size(155, 23);
+            this.PasswordTextBox.Size = new System.Drawing.Size(167, 23);
             this.PasswordTextBox.TabIndex = 0;
             this.PasswordTextBox.UseSystemPasswordChar = true;
             this.PasswordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PasswordTextBox_KeyPress);
             // 
             // LogInButton
             // 
-            this.LogInButton.Location = new System.Drawing.Point(372, 265);
+            this.LogInButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.LogInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LogInButton.ForeColor = System.Drawing.Color.White;
+            this.LogInButton.Location = new System.Drawing.Point(325, 292);
             this.LogInButton.Name = "LogInButton";
-            this.LogInButton.Size = new System.Drawing.Size(75, 23);
+            this.LogInButton.Size = new System.Drawing.Size(167, 32);
             this.LogInButton.TabIndex = 1;
             this.LogInButton.Text = "Log In";
-            this.LogInButton.UseVisualStyleBackColor = true;
+            this.LogInButton.UseVisualStyleBackColor = false;
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
             // ErrorLabel
@@ -70,10 +73,11 @@
             // FPCryptLabel
             // 
             this.FPCryptLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FPCryptLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.FPCryptLabel.Font = new System.Drawing.Font("Lucida Sans", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.FPCryptLabel.ForeColor = System.Drawing.Color.White;
             this.FPCryptLabel.Location = new System.Drawing.Point(325, 111);
             this.FPCryptLabel.Name = "FPCryptLabel";
-            this.FPCryptLabel.Size = new System.Drawing.Size(155, 50);
+            this.FPCryptLabel.Size = new System.Drawing.Size(167, 50);
             this.FPCryptLabel.TabIndex = 3;
             this.FPCryptLabel.Text = "FPCrypt";
             // 
@@ -81,6 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.FPCryptLabel);
             this.Controls.Add(this.ErrorLabel);
