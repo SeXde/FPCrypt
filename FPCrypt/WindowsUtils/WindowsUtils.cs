@@ -14,5 +14,20 @@ namespace FPCrypt.WindowsUtils
             newForm.Closed += (s, args) => oldForm.Close();
             newForm.Show();
         }
+
+        public static string? detectErrors(string password)
+        {
+            if (password == null || password.Length == 0)
+            {
+                return "You need to provide a password";
+            }
+
+            if (password.Length < 6)
+            {
+                return "The password needs at least 6 characters";
+            }
+
+            return null;
+        }
     }
 }

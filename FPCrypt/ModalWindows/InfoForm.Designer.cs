@@ -91,11 +91,12 @@
             this.infoLabel.AutoSize = true;
             this.infoLabel.Font = new System.Drawing.Font("Lucida Sans", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.infoLabel.ForeColor = System.Drawing.Color.White;
-            this.infoLabel.Location = new System.Drawing.Point(218, 108);
+            this.infoLabel.Location = new System.Drawing.Point(23, 113);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(57, 27);
             this.infoLabel.TabIndex = 4;
             this.infoLabel.Text = "info";
+            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InfoForm
             // 

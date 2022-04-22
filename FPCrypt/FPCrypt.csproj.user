@@ -7,6 +7,9 @@
     <Compile Update="MainWindow\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainWindow\PasswordWindow\PasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ModalWindows\ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>

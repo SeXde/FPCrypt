@@ -18,7 +18,7 @@ namespace FPCrypt
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            var error = detectErrors();
+            var error = WindowsUtils.WindowsUtils.detectErrors(PasswordTextBox.Text);
 
             if (error != null)
             {
@@ -46,22 +46,6 @@ namespace FPCrypt
             }
         }
 
-        private string? detectErrors()
-        {
-            var password = PasswordTextBox.Text;
-            if (password == null || password.Length == 0)
-            {
-                return "You need to provide a password";
-            }
-
-            if (password.Length < 6)
-            {
-                return "The password needs at least 6 characters";
-            }
-
-            return null;
-        }
-
         private void setError(string message)
         {
             ErrorLabel.Text = message;
@@ -77,6 +61,11 @@ namespace FPCrypt
         }
 
         private void LogIn_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
