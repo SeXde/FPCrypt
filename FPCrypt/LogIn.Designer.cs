@@ -1,6 +1,6 @@
 ﻿namespace FPCrypt
 {
-    partial class Form1
+    partial class LogIn
     {
         /// <summary>
         ///  Required designer variable.
@@ -50,7 +50,7 @@
             this.LogInButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.LogInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogInButton.ForeColor = System.Drawing.Color.White;
-            this.LogInButton.Location = new System.Drawing.Point(325, 292);
+            this.LogInButton.Location = new System.Drawing.Point(325, 269);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(167, 32);
             this.LogInButton.TabIndex = 1;
@@ -73,7 +73,7 @@
             // FPCryptLabel
             // 
             this.FPCryptLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FPCryptLabel.Font = new System.Drawing.Font("Lucida Sans", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.FPCryptLabel.Font = new System.Drawing.Font("Lucida Sans", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.FPCryptLabel.ForeColor = System.Drawing.Color.White;
             this.FPCryptLabel.Location = new System.Drawing.Point(325, 111);
             this.FPCryptLabel.Name = "FPCryptLabel";
@@ -81,7 +81,7 @@
             this.FPCryptLabel.TabIndex = 3;
             this.FPCryptLabel.Text = "FPCrypt";
             // 
-            // Form1
+            // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -91,8 +91,9 @@
             this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.LogInButton);
             this.Controls.Add(this.PasswordTextBox);
-            this.Name = "Form1";
+            this.Name = "LogIn";
             this.Text = "FPCrypt - Log In";
+            this.Load += new System.EventHandler(this.LogIn_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

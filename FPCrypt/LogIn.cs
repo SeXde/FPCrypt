@@ -2,11 +2,11 @@ using FPCrypt.MainWindow;
 
 namespace FPCrypt
 {
-    public partial class Form1 : Form
+    public partial class LogIn : Form
     {
 
         private MasterPasswordManager masterPasswordManager;
-        public Form1()
+        public LogIn()
         {
             InitializeComponent();
             masterPasswordManager = MasterPasswordManager.getInstance();
@@ -29,7 +29,9 @@ namespace FPCrypt
                 if (masterPasswordManager.isFirstTime())
                 {
                     masterPasswordManager.setPassword(PasswordTextBox.Text);
-                    PasswordTextBox.Text = "Log in";
+                    LogInButton.Text = "Log In";
+                    var infoForm = new ModalWindows.InfoForm("Password was successfully created");
+                    infoForm.ShowDialog();
                 } else
                 {
                     if (!masterPasswordManager.checkMasterpassword(PasswordTextBox.Text))
@@ -37,10 +39,7 @@ namespace FPCrypt
                         setError("Passwords do not match!");
                     } else
                     {
-                        this.Hide();
-                        var form2 = new MainWindow.MainWindow();
-                        form2.Closed += (s, args) => this.Close();
-                        form2.Show();
+                        WindowsUtils.WindowsUtils.changeView(this, new MainWindow.MainWindow());
                         ErrorLabel.Visible = false;
                     }
                 }
@@ -75,6 +74,11 @@ namespace FPCrypt
             {
                 LogInButton.PerformClick();
             }
+        }
+
+        private void LogIn_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

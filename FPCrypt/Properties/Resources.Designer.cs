@@ -93,6 +93,16 @@ namespace FPCrypt.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_acerca_de_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-acerca-de-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_add_fingerprint_48px {
             get {
                 object obj = ResourceManager.GetObject("icons8_add_fingerprint_48px", resourceCulture);

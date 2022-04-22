@@ -130,6 +130,9 @@
   <data name="delete-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\delete-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-touch-id-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8-touch-id-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-fingerprint-accepted-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icons8-fingerprint-accepted-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,7 +169,7 @@
   <data name="key-5-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\key-5-48.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-touch-id-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\icons8-touch-id-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-acerca-de-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\icons8-acerca-de-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
