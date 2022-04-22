@@ -1,10 +1,19 @@
+using FPCrypt.MainWindow;
+
 namespace FPCrypt
 {
     public partial class Form1 : Form
     {
+
+        private MasterPasswordManager masterPasswordManager;
         public Form1()
         {
             InitializeComponent();
+            masterPasswordManager = MasterPasswordManager.getInstance();
+            if(masterPasswordManager.isFirstTime())
+            {
+                LogInButton.Text = "Sign up";
+            }
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -17,7 +26,24 @@ namespace FPCrypt
             }
             else
             {
-                ErrorLabel.Visible = false;
+                if (masterPasswordManager.isFirstTime())
+                {
+                    masterPasswordManager.setPassword(PasswordTextBox.Text);
+                    PasswordTextBox.Text = "Log in";
+                } else
+                {
+                    if (!masterPasswordManager.checkMasterpassword(PasswordTextBox.Text))
+                    {
+                        setError("Passwords do not match!");
+                    } else
+                    {
+                        this.Hide();
+                        var form2 = new MainWindow.MainWindow();
+                        form2.Closed += (s, args) => this.Close();
+                        form2.Show();
+                        ErrorLabel.Visible = false;
+                    }
+                }
             }
         }
 
@@ -32,12 +58,6 @@ namespace FPCrypt
             if (password.Length < 6)
             {
                 return "The password needs at least 6 characters";
-            }
-
-            string actualPassword = "";
-            if (password != actualPassword)
-            {
-                return "The password is not correct";
             }
 
             return null;
