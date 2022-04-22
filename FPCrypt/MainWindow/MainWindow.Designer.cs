@@ -40,33 +40,12 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.mainPanelFP = new System.Windows.Forms.TableLayoutPanel();
-            this.imagePanelFP = new System.Windows.Forms.Panel();
-            this.labelFP = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTitle.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.mainPanelFP.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -262,205 +241,12 @@
             // 
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.flowLayoutPanel1.Controls.Add(this.mainPanelFP);
-            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel2);
-            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel4);
-            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel5);
-            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel6);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(228, 80);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(609, 382);
             this.flowLayoutPanel1.TabIndex = 7;
-            // 
-            // mainPanelFP
-            // 
-            this.mainPanelFP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.mainPanelFP.ColumnCount = 1;
-            this.mainPanelFP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.mainPanelFP.Controls.Add(this.imagePanelFP, 0, 0);
-            this.mainPanelFP.Controls.Add(this.labelFP, 0, 1);
-            this.mainPanelFP.Location = new System.Drawing.Point(20, 20);
-            this.mainPanelFP.Margin = new System.Windows.Forms.Padding(20);
-            this.mainPanelFP.Name = "mainPanelFP";
-            this.mainPanelFP.RowCount = 2;
-            this.mainPanelFP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.86567F));
-            this.mainPanelFP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.13433F));
-            this.mainPanelFP.Size = new System.Drawing.Size(105, 134);
-            this.mainPanelFP.TabIndex = 0;
-            this.mainPanelFP.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
-            // 
-            // imagePanelFP
-            // 
-            this.imagePanelFP.BackgroundImage = global::FPCrypt.Properties.Resources.icons8_touch_id_100;
-            this.imagePanelFP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imagePanelFP.Location = new System.Drawing.Point(3, 3);
-            this.imagePanelFP.Name = "imagePanelFP";
-            this.imagePanelFP.Size = new System.Drawing.Size(99, 97);
-            this.imagePanelFP.TabIndex = 0;
-            // 
-            // labelFP
-            // 
-            this.labelFP.AutoSize = true;
-            this.labelFP.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelFP.ForeColor = System.Drawing.Color.White;
-            this.labelFP.Location = new System.Drawing.Point(3, 103);
-            this.labelFP.Name = "labelFP";
-            this.labelFP.Size = new System.Drawing.Size(73, 18);
-            this.labelFP.TabIndex = 1;
-            this.labelFP.Text = "Huella 1";
-            this.labelFP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelFP.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(165, 20);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(20);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.86567F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.13433F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(105, 134);
-            this.tableLayoutPanel2.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = global::FPCrypt.Properties.Resources.icons8_touch_id_100;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(99, 97);
-            this.panel2.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(3, 103);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 18);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Huella 2";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(310, 20);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(20);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.86567F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.13433F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(105, 134);
-            this.tableLayoutPanel4.TabIndex = 2;
-            // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = global::FPCrypt.Properties.Resources.icons8_touch_id_100;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(99, 97);
-            this.panel4.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(3, 103);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 18);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Huella 3";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.panel5, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(455, 20);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(20);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.86567F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.13433F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(105, 134);
-            this.tableLayoutPanel5.TabIndex = 3;
-            // 
-            // panel5
-            // 
-            this.panel5.BackgroundImage = global::FPCrypt.Properties.Resources.icons8_touch_id_100;
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(99, 97);
-            this.panel5.TabIndex = 0;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(3, 103);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 18);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Huella 4";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.panel6, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label7, 0, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(20, 194);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(20);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.86567F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.13433F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(105, 134);
-            this.tableLayoutPanel6.TabIndex = 4;
-            // 
-            // panel6
-            // 
-            this.panel6.BackgroundImage = global::FPCrypt.Properties.Resources.icons8_touch_id_100;
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(99, 97);
-            this.panel6.TabIndex = 0;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(3, 103);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 18);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Huella 5";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // tableLayoutPanel3
             // 
@@ -514,17 +300,6 @@
             this.panelLogo.PerformLayout();
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.mainPanelFP.ResumeLayout(false);
-            this.mainPanelFP.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -543,21 +318,6 @@
         private Label labelTitle;
         private Panel panelTitle;
         private FlowLayoutPanel flowLayoutPanel1;
-        private TableLayoutPanel mainPanelFP;
-        private Panel imagePanelFP;
-        private Label labelFP;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Panel panel2;
-        private Label label3;
-        private TableLayoutPanel tableLayoutPanel4;
-        private Panel panel4;
-        private Label label5;
-        private TableLayoutPanel tableLayoutPanel5;
-        private Panel panel5;
-        private Label label6;
-        private TableLayoutPanel tableLayoutPanel6;
-        private Panel panel6;
-        private Label label7;
         private TableLayoutPanel tableLayoutPanel3;
         private Panel panel3;
         private Label label4;

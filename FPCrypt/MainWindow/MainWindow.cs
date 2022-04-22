@@ -12,9 +12,12 @@ namespace FPCrypt.MainWindow
 {
     public partial class MainWindow : Form
     {
+        private FingerprintManager fingerprintManager;
         public MainWindow()
         {
             InitializeComponent();
+            fingerprintManager = FingerprintManager.getInstance();
+            loadFingerprints();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -86,6 +89,20 @@ namespace FPCrypt.MainWindow
         private void btnFingerPrint_Click(object sender, EventArgs e)
         {
             new AddFingerPrintWindow.AddFingerpirntForm().ShowDialog();
+        }
+
+        public void loadFingerprints()
+        {
+            foreach (var fingerprint in fingerprintManager.getFingerprints())
+            {
+                var fpItem = new ListFingerprintItem(fingerprint);
+                this.flowLayoutPanel1.Controls.Add(fpItem);
+            }
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

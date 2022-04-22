@@ -13,6 +13,9 @@
     <Compile Update="MainWindow\EncryptWindow\EncryptForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainWindow\ListFingerprintItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="MainWindow\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
