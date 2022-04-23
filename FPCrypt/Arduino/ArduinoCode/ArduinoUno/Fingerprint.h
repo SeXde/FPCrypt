@@ -291,11 +291,11 @@ private:
 	{
 		if (turnOn)
 		{
-			pinMode(ledPin, HIGH);
+			digitalWrite(ledPin, HIGH);
 		}
 		else
 		{
-			pinMode(ledPin, LOW);
+			digitalWrite(ledPin, LOW);
 		}
 	}
 
