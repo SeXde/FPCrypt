@@ -41,7 +41,7 @@ public:
 		}
 		else
 		{
-			Serial.println("error:Did not find fingerprint sensor :(");
+			Serial.println("error|Did not find fingerprint sensor|");
 			while (1)
 			{
 				delay(1);
@@ -56,17 +56,19 @@ public:
 	{
 		int status = -1;
 
-		finger.LEDcontrol(FINGERPRINT_LED_GRADUAL_ON, 0, FINGERPRINT_LED_BLUE);
+		finger.LEDcontrol(FINGERPRINT_LED_ON);
 
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
@@ -79,12 +81,14 @@ public:
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
 		status = imageTz(2);
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
@@ -93,45 +97,50 @@ public:
 		status = createModel();
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
 		status = storeModel(id);
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return status;
 		}
 
-		finger.LEDcontrol(FINGERPRINT_LED_GRADUAL_OFF, 0, FINGERPRINT_LED_BLUE);
+		finger.LEDcontrol(FINGERPRINT_LED_OFF);
 
 		return status;
 	}
 
 	ScanResult scanFingerprint()
 	{
-		finger.LEDcontrol(FINGERPRINT_LED_GRADUAL_ON, 0, FINGERPRINT_LED_BLUE);
+		finger.LEDcontrol(FINGERPRINT_LED_ON);
 
 		int status = -1;
 
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return ScanResult(status);
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return ScanResult(status);
 		}
 
 		status = searchFinger();
 		if (status != FINGERPRINT_OK)
 		{
+			finger.LEDcontrol(FINGERPRINT_LED_OFF);
 			return ScanResult(status);
 		}
 
-		finger.LEDcontrol(FINGERPRINT_LED_GRADUAL_OFF, 0, FINGERPRINT_LED_BLUE);
+		finger.LEDcontrol(FINGERPRINT_LED_OFF);
 
 		return ScanResult(&finger);
 	}
