@@ -30,7 +30,11 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelFP = new System.Windows.Forms.Label();
+            this.editNameButton = new System.Windows.Forms.PictureBox();
+            this.deleteFingerButton = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editNameButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deleteFingerButton)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -54,16 +58,42 @@
             this.labelFP.TabIndex = 2;
             this.labelFP.Text = "Huella 1";
             // 
+            // editNameButton
+            // 
+            this.editNameButton.Image = global::FPCrypt.Properties.Resources.edit_2_48;
+            this.editNameButton.Location = new System.Drawing.Point(49, 114);
+            this.editNameButton.Name = "editNameButton";
+            this.editNameButton.Size = new System.Drawing.Size(24, 23);
+            this.editNameButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.editNameButton.TabIndex = 4;
+            this.editNameButton.TabStop = false;
+            this.editNameButton.Click += new System.EventHandler(this.editNameButton_Click);
+            // 
+            // deleteFingerButton
+            // 
+            this.deleteFingerButton.Image = global::FPCrypt.Properties.Resources.delete_48;
+            this.deleteFingerButton.Location = new System.Drawing.Point(79, 114);
+            this.deleteFingerButton.Name = "deleteFingerButton";
+            this.deleteFingerButton.Size = new System.Drawing.Size(24, 23);
+            this.deleteFingerButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.deleteFingerButton.TabIndex = 5;
+            this.deleteFingerButton.TabStop = false;
+            this.deleteFingerButton.Click += new System.EventHandler(this.deleteFingerButton_Click);
+            // 
             // ListFingerprintItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Controls.Add(this.deleteFingerButton);
+            this.Controls.Add(this.editNameButton);
             this.Controls.Add(this.labelFP);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ListFingerprintItem";
-            this.Size = new System.Drawing.Size(106, 132);
+            this.Size = new System.Drawing.Size(106, 140);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editNameButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deleteFingerButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -73,5 +103,7 @@
 
         private PictureBox pictureBox1;
         private Label labelFP;
+        private PictureBox editNameButton;
+        private PictureBox deleteFingerButton;
     }
 }

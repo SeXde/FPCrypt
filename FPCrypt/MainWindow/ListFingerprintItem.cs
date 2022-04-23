@@ -31,5 +31,15 @@ namespace FPCrypt.MainWindow
         {
 
         }
+
+        private void editNameButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Show edit name dialog
+        }
+
+        private void deleteFingerButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Delete finger
+        }
     }
 }
