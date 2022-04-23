@@ -29,10 +29,10 @@ struct ScanResult
 class Fingerprint
 {
 	Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-	int lightPin = 0;
+	int ledPin = 0;
 
 public:
-	void setup(int lightPin)
+	void setup(int ledPin)
 	{
 		Serial.println("Starting up Fingerprint Sensor");
 		// set the data rate for the sensor serial port
@@ -52,7 +52,7 @@ public:
 		}
 
 		// printParams();
-		this->lightPin = lightLed;
+		this->ledPin = ledPin;
 	}
 
 	/** Returns the error string if any */
@@ -65,14 +65,14 @@ public:
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
@@ -85,14 +85,14 @@ public:
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
 		status = imageTz(2);
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
@@ -101,14 +101,14 @@ public:
 		status = createModel();
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
 		status = storeModel(id);
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return status;
 		}
 
@@ -126,21 +126,21 @@ public:
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return ScanResult(status);
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return ScanResult(status);
 		}
 
 		status = searchFinger();
 		if (status != FINGERPRINT_OK)
 		{
-			lightLed(LIGHT_OFF);
+			lightError();
 			return ScanResult(status);
 		}
 
@@ -296,6 +296,17 @@ private:
 		else
 		{
 			pinMode(ledPin, LOW);
+		}
+	}
+
+	void lightError()
+	{
+		for (int times = 0; times < 20; times++)
+		{
+			lightLed(LIGHT_ON);
+			delay(100);
+			lightLed(LIGHT_OFF);
+			delay(100);
 		}
 	}
 };
