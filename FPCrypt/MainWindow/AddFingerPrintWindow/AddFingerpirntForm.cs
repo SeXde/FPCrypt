@@ -32,7 +32,7 @@ namespace FPCrypt.MainWindow.AddFingerPrintWindow
                     label2.Text = "Name is already taken";
                 } else
                 {
-                    var loadingForm = new LoadingWindow.LoadingForm("Adding fingerprint");
+                    var loadingForm = new LoadingWindow.LoadingForm("Adding fingerprint", textBox1.Text);
                     WindowsUtils.WindowsUtils.changeView(this, loadingForm);
                 }
             }

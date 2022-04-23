@@ -38,7 +38,7 @@ void loop()
 
 		const int idStartIndex = readedString.indexOf(":");
 		const int id = readedString.substring(idStartIndex + 1).toInt();
-    Serial.println(String("Registering fingerprint: ") + id);
+    Serial.println("Registering...");
 
 		const int status = fingerprintHandler.registerFingerprint(id);
 

@@ -11,7 +11,6 @@ namespace FPCrypt
         private static string ACK_DELETE = "done";
         private static string ACK_ERROR = "error";
         private static int TIME_OUT = 50;
-        public static event Notify fingerprintEvents;
 
 
         public static string readFingerPrint()
@@ -61,7 +60,7 @@ namespace FPCrypt
             {
                 Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
 
             if (readedValue.Contains(ACK_ERROR))
@@ -84,9 +83,9 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
 
             if (readedValue.Contains(ACK_ERROR))
@@ -110,9 +109,9 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
 
             if (readedValue.Contains(ACK_ERROR))
@@ -135,9 +134,9 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
 
             if (readedValue.Contains(ACK_ERROR))
@@ -161,7 +160,7 @@ namespace FPCrypt
                 serialPort.Write("Show " + type + ":" + info);
                 Thread.Sleep(1010);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_ALIVE) && !readedValue.Contains(ACK_ERROR));
 
             if (readedValue.Contains(ACK_ERROR))

@@ -41,7 +41,7 @@ public:
 		}
 		else
 		{
-			Serial.println("Did not find fingerprint sensor :(");
+			Serial.println("error:Did not find fingerprint sensor :(");
 			while (1)
 			{
 				delay(1);
