@@ -2,12 +2,13 @@
 #include "Fingerprint.h"
 
 Fingerprint fingerprintHandler = Fingerprint();
+int ledPin = 10;
 
 void setup()
 {
 	Serial.begin(9600);
 
-	fingerprintHandler.setup();
+	fingerprintHandler.setup(ledPin);
 }
 
 void loop()
@@ -30,8 +31,6 @@ void loop()
 				found = true;
 			}
 		}
-
-		digitalWrite(10, LOW);
 	}
 	else if (readedString.startsWith("Register fingerprint:"))
 	{
@@ -50,8 +49,6 @@ void loop()
 		{
 			Serial.println(String("error|") + fingerprintHandler.translateErrorMessage(status) + String("|"));
 		}
-
-		digitalWrite(10, LOW);
 	}
 	else if (readedString.startsWith("Delete fingerprint:"))
 	{

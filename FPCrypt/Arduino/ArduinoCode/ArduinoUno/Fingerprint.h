@@ -6,6 +6,8 @@
 SoftwareSerial mySerial(2, 3);
 
 #define MAX_FINGER_TRIES 10000
+#define LIGHT_ON true
+#define LIGHT_OFF false
 
 struct ScanResult
 {
@@ -27,9 +29,10 @@ struct ScanResult
 class Fingerprint
 {
 	Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+	int lightPin = 0;
 
 public:
-	void setup()
+	void setup(int lightPin)
 	{
 		Serial.println("Starting up Fingerprint Sensor");
 		// set the data rate for the sensor serial port
@@ -49,6 +52,7 @@ public:
 		}
 
 		// printParams();
+		this->lightPin = lightLed;
 	}
 
 	/** Returns the error string if any */
@@ -56,19 +60,19 @@ public:
 	{
 		int status = -1;
 
-		finger.LEDcontrol(FINGERPRINT_LED_ON);
+		lightLed(LIGHT_ON);
 
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
@@ -81,14 +85,14 @@ public:
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
 		status = imageTz(2);
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
@@ -97,50 +101,50 @@ public:
 		status = createModel();
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
 		status = storeModel(id);
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return status;
 		}
 
-		finger.LEDcontrol(FINGERPRINT_LED_OFF);
+		lightLed(LIGHT_OFF);
 
 		return status;
 	}
 
 	ScanResult scanFingerprint()
 	{
-		finger.LEDcontrol(FINGERPRINT_LED_ON);
+		lightLed(LIGHT_ON);
 
 		int status = -1;
 
 		status = takeFingerImage();
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return ScanResult(status);
 		}
 
 		status = imageTz(1);
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return ScanResult(status);
 		}
 
 		status = searchFinger();
 		if (status != FINGERPRINT_OK)
 		{
-			finger.LEDcontrol(FINGERPRINT_LED_OFF);
+			lightLed(LIGHT_OFF);
 			return ScanResult(status);
 		}
 
-		finger.LEDcontrol(FINGERPRINT_LED_OFF);
+		lightLed(LIGHT_OFF);
 
 		return ScanResult(&finger);
 	}
@@ -281,5 +285,17 @@ private:
 	int searchFinger()
 	{
 		return finger.fingerSearch();
+	}
+
+	void lightLed(bool turnOn)
+	{
+		if (turnOn)
+		{
+			pinMode(ledPin, HIGH);
+		}
+		else
+		{
+			pinMode(ledPin, LOW);
+		}
 	}
 };
