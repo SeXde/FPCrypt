@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using System.Text.RegularExpressions;
 
 namespace FPCrypt
 {
@@ -19,7 +20,14 @@ namespace FPCrypt
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
+            {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
+            }
+            
         }
 
         public static string registerFingerPrint(int id)
@@ -28,7 +36,13 @@ namespace FPCrypt
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
+            {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
+            }
         }
 
         public static void deleteFingerPrint(int id)
@@ -65,13 +79,16 @@ namespace FPCrypt
 
             if (readedValue.Contains(ACK_ERROR))
             {
-                throw new Exception("Error trying to read fingerprint");
+                Regex regex = new Regex("error|([a-z A-Z]+)|");
+                string error = regex.Match(readedValue).Groups[1].Value;
+                throw new Exception(error);
             }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
+            readedValue = Regex.Match("fingerprint:[0-9]+", readedValue).Value;
             return readedValue.Replace(ACK_FP, "").Trim();
         }
 
@@ -90,13 +107,15 @@ namespace FPCrypt
 
             if (readedValue.Contains(ACK_ERROR))
             {
-                throw new Exception("Error trying to register fingerprint");
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
             }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
+            readedValue = Regex.Match(readedValue, @"fingerprint:[0-9]+").Value;
             return readedValue.Replace(ACK_FP, "").Trim();
 
         }
@@ -116,7 +135,9 @@ namespace FPCrypt
 
             if (readedValue.Contains(ACK_ERROR))
             {
-                throw new Exception("Error trying to delete fingerprint");
+                Regex regex = new Regex("error|([a-z A-Z]+)|");
+                string error = regex.Match(readedValue).Groups[0].Value;
+                throw new Exception(error);
             }
 
             if (serialPort.IsOpen)
@@ -141,7 +162,9 @@ namespace FPCrypt
 
             if (readedValue.Contains(ACK_ERROR))
             {
-                throw new Exception("Error trying to clear db");
+                Regex regex = new Regex("error|([a-z A-Z]+)|");
+                string error = regex.Match(readedValue).Groups[0].Value;
+                throw new Exception(error);
             }
 
             if (serialPort.IsOpen)
@@ -165,7 +188,9 @@ namespace FPCrypt
 
             if (readedValue.Contains(ACK_ERROR))
             {
-                throw new Exception("Error trying to write info");
+                Regex regex = new Regex("error|([a-z A-Z]+)|");
+                string error = regex.Match(readedValue).Groups[0].Value;
+                throw new Exception(error);
             }
 
             if (serialPort.IsOpen)

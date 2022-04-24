@@ -12,9 +12,12 @@ namespace FPCrypt.MainWindow.AddFingerPrintWindow
 {
     public partial class AddFingerpirntForm : Form
     {
-        public AddFingerpirntForm()
+
+        private MainWindow mainForm;
+        public AddFingerpirntForm(MainWindow mainForm)
         {
             InitializeComponent();
+            this.mainForm = mainForm;
             label2.Text = "";
         }
 
@@ -32,10 +35,25 @@ namespace FPCrypt.MainWindow.AddFingerPrintWindow
                     label2.Text = "Name is already taken";
                 } else
                 {
-                    var loadingForm = new LoadingWindow.LoadingForm("Adding fingerprint", textBox1.Text);
-                    WindowsUtils.WindowsUtils.changeView(this, loadingForm);
+                    Cursor = Cursors.WaitCursor;
+                    try
+                    {
+                        string fp = ArduinoCom.registerFingerPrint(fingerprintManager.getCurrentId());
+                        fingerprintManager.addFP(new Fingerprint(textBox1.Text, fp));
+                        mainForm.loadFingerprints();
+                        WindowsUtils.WindowsUtils.changeView(this, new ModalWindows.InfoForm("Fingerprint was created successfully"));
+                    } catch (Exception ex)
+                    {
+                        label2.Text = ex.Message;
+                    }
+                    Cursor = Cursors.Arrow;
                 }
             }
+        }
+
+        private void AddFingerpirntForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

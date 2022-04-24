@@ -1,4 +1,5 @@
-﻿public class Fingerprint
+﻿[Serializable]
+public class Fingerprint
 {
     private string name;
     private string fingerprintValue;

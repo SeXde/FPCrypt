@@ -28,7 +28,7 @@ public class FingerprintManager
                 FingerprintManager saved = formatter.Deserialize(stream) as FingerprintManager;
                 fingerprints = saved.getMap();
                 fingerprintCurrId = saved.getCurrentId();
-                fingerprintNames = getNames();
+                fingerprintNames = saved.getNames();
 
             }
         }
@@ -55,7 +55,7 @@ public class FingerprintManager
         fingerprintNames.Add(fingerprint.getName());
         fingerprintCurrId++;
         IFormatter formatter = new BinaryFormatter();
-        using (Stream stream = new FileStream(CLASS_FILE, FileMode.Create, FileAccess.Write, FileShare.None))
+        using (Stream stream = new FileStream(CLASS_FILE, FileMode.Truncate, FileAccess.Write, FileShare.None))
         {
             formatter.Serialize(stream, this);
         }
