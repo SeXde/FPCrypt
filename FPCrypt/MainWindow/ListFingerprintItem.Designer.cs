@@ -67,7 +67,6 @@
             this.editNameButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.editNameButton.TabIndex = 4;
             this.editNameButton.TabStop = false;
-            this.editNameButton.Click += new System.EventHandler(this.editNameButton_Click);
             // 
             // deleteFingerButton
             // 
@@ -78,7 +77,6 @@
             this.deleteFingerButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.deleteFingerButton.TabIndex = 5;
             this.deleteFingerButton.TabStop = false;
-            this.deleteFingerButton.Click += new System.EventHandler(this.deleteFingerButton_Click);
             // 
             // ListFingerprintItem
             // 

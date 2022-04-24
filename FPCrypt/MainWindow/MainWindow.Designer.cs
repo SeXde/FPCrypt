@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnFingerPrint = new System.Windows.Forms.Button();
             this.btnUnlock = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
@@ -52,8 +50,6 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.panelMenu.Controls.Add(this.button2);
-            this.panelMenu.Controls.Add(this.button1);
             this.panelMenu.Controls.Add(this.btnFingerPrint);
             this.panelMenu.Controls.Add(this.btnUnlock);
             this.panelMenu.Controls.Add(this.btnLock);
@@ -64,46 +60,6 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(228, 462);
             this.panelMenu.TabIndex = 5;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button2.Image = global::FPCrypt.Properties.Resources.edit_2_48;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 380);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(228, 60);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "  Edit fingerprint";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button1.Image = global::FPCrypt.Properties.Resources.delete_48;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 320);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(228, 60);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "  Delete fingerprint";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // btnFingerPrint
             // 
@@ -309,8 +265,6 @@
         private Panel panelMenu;
         private Button btnUnlock;
         private Button btnLock;
-        private Button button2;
-        private Button button1;
         private Button btnFingerPrint;
         private Button btnPassword;
         private Panel panelLogo;
