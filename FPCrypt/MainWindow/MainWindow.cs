@@ -13,12 +13,10 @@ namespace FPCrypt.MainWindow
     public partial class MainWindow : Form
     {
         private FingerprintManager fingerprintManager;
-        private HashSet<Fingerprint> fingerprints;
         public MainWindow()
         {
             InitializeComponent();
             fingerprintManager = FingerprintManager.getInstance();
-            fingerprints = new HashSet<Fingerprint>();
             loadFingerprints();
         }
 
@@ -95,14 +93,11 @@ namespace FPCrypt.MainWindow
 
         public void loadFingerprints()
         {
+            flowLayoutPanel1.Controls.Clear();
             foreach (var fingerprint in fingerprintManager.getFingerprints())
             {
-                if (!fingerprints.Contains(fingerprint))
-                {
-                    var fpItem = new ListFingerprintItem(fingerprint);
-                    this.flowLayoutPanel1.Controls.Add(fpItem);
-                    fingerprints.Add(fingerprint);
-                }
+                var fpItem = new ListFingerprintItem(fingerprint, this);
+                this.flowLayoutPanel1.Controls.Add(fpItem);
             }
         }
 

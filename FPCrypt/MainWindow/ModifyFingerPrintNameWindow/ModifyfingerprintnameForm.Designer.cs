@@ -44,7 +44,6 @@
             this.label1.Size = new System.Drawing.Size(247, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "New fingerprint name";
-            
             // 
             // textBox1
             // 
@@ -74,8 +73,9 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Change";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // Form1
+            // ModifyfingerprintnameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -85,8 +85,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "ModifyfingerprintnameForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.ModifyfingerprintnameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -80,10 +80,6 @@ public class FingerprintManager
         if (!fingerprints.ContainsKey(oldFingerprint.getFingerprintValue())) {
             throw new NotSupportedException("Old fingerprint not found");
         }
-        if (fingerprints.ContainsKey(newFingerprint.getFingerprintValue()))
-        {
-            throw new NotSupportedException("New fingerprint already exists");
-        }
         fingerprints.Remove(oldFingerprint.getFingerprintValue());
         fingerprints.Add(newFingerprint.getFingerprintValue(), newFingerprint);
         fingerprintNames.Remove(oldFingerprint.getName());

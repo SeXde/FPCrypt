@@ -13,14 +13,16 @@ namespace FPCrypt.MainWindow.ModifyFingerPrintNameWindow
     public partial class ModifyfingerprintnameForm : Form
     {
         private Fingerprint fingerprint;
-        public ModifyfingerprintnameForm(Fingerprint fingerprint)
+        private MainWindow mainWindow;
+        public ModifyfingerprintnameForm(Fingerprint fingerprint, MainWindow mainWindow)
         {
             InitializeComponent();
             label2.Text = "";
-            this.fingerprint = fingerprint; 
+            this.fingerprint = fingerprint;
+            this.mainWindow = mainWindow;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             label2.Text = "";
             if (string.IsNullOrEmpty(this.textBox1.Text))
@@ -38,8 +40,15 @@ namespace FPCrypt.MainWindow.ModifyFingerPrintNameWindow
                 {
                     Fingerprint newFingerprint = new Fingerprint(this.textBox1.Text, fingerprint.getFingerprintValue());
                     manager.modifyFP(fingerprint, newFingerprint);
+                    mainWindow.loadFingerprints();
+                    WindowsUtils.WindowsUtils.changeView(this, new ModalWindows.InfoForm("Fingerprint was modified successfully"));
                 }
             }
+        }
+
+        private void ModifyfingerprintnameForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,11 +14,13 @@ namespace FPCrypt.MainWindow
     {
 
         private Fingerprint fingerprint;
-        public ListFingerprintItem(Fingerprint fingerprint)
+        private MainWindow mainWindow;
+        public ListFingerprintItem(Fingerprint fingerprint, MainWindow mainWindow)
         {
             InitializeComponent();
             this.fingerprint = fingerprint;
             labelFP.Text = fingerprint.getName();
+            this.mainWindow = mainWindow;
         }
 
         public void updateItem(Fingerprint fingerprint)
@@ -34,7 +36,8 @@ namespace FPCrypt.MainWindow
 
         private void editNameButton_Click(object sender, EventArgs e)
         {
-            new ModifyFingerPrintNameWindow.ModifyfingerprintnameForm(fingerprint).ShowDialog();
+            new ModifyFingerPrintNameWindow.ModifyfingerprintnameForm(fingerprint, mainWindow).ShowDialog();
+
         }
 
         private void deleteFingerButton_Click(object sender, EventArgs e)

@@ -67,6 +67,7 @@
             this.editNameButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.editNameButton.TabIndex = 4;
             this.editNameButton.TabStop = false;
+            this.editNameButton.Click += new System.EventHandler(this.editNameButton_Click);
             // 
             // deleteFingerButton
             // 
