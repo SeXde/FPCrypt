@@ -42,8 +42,19 @@ namespace FPCrypt.MainWindow
 
         private void deleteFingerButton_Click(object sender, EventArgs e)
         {
-            var manager = FingerprintManager.getInstance();
-            manager.deleteFP(fingerprint);
+            
+        }
+
+        private void deleteFingerButton_Click_1(object sender, EventArgs e)
+        {
+            var result = new ModalWindows.WarningForm("If you remove this fingerprint some data could be lost").ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                FingerprintManager.getInstance().deleteFP(fingerprint);
+                mainWindow.loadFingerprints();
+            }
+           
+
         }
     }
 }

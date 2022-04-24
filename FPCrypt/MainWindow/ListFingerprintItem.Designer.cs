@@ -78,6 +78,7 @@
             this.deleteFingerButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.deleteFingerButton.TabIndex = 5;
             this.deleteFingerButton.TabStop = false;
+            this.deleteFingerButton.Click += new System.EventHandler(this.deleteFingerButton_Click_1);
             // 
             // ListFingerprintItem
             // 
