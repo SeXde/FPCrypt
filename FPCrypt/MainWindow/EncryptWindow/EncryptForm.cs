@@ -42,7 +42,30 @@ namespace FPCrypt.MainWindow.EncryptWindow
             } else
             {
                 var fingerprintManager = FingerprintManager.getInstance();
-                // TODO call arduino window
+                Cursor = Cursors.WaitCursor;
+                try
+                {
+                    string fp = ArduinoCom.readFingerPrint();
+                    if (!fingerprintManager.isPresent(fp))
+                    {
+                        labelError.Text = "Fingerprint is not registered.";
+                    } else
+                    {
+                        try
+                        {
+                            cryptoUtils.CipherTool.GetInstance().EncryptFile(textPath.Text, fp);
+                            WindowsUtils.WindowsUtils.changeView(this, new ModalWindows.InfoForm("File was successfully encrypted"));
+                        } catch(Exception ex2)
+                        {
+                            labelError.Text = ex2.Message;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    labelError.Text = ex.Message;
+                }
+                Cursor = Cursors.Arrow;
             }
         }
 
