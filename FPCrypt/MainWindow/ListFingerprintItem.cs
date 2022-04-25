@@ -50,11 +50,20 @@ namespace FPCrypt.MainWindow
             var result = new ModalWindows.WarningForm("If you remove this fingerprint some data could be lost").ShowDialog();
             if (result == DialogResult.OK)
             {
-                FingerprintManager.getInstance().deleteFP(fingerprint);
-                mainWindow.loadFingerprints();
+                Cursor = Cursors.WaitCursor;
+                try
+                {
+                    ArduinoCom.deleteFingerPrint(Int32.Parse(fingerprint.getFingerprintValue()));
+                    FingerprintManager.getInstance().deleteFP(fingerprint);
+                    mainWindow.loadFingerprints();
+                    new ModalWindows.InfoForm("Fingerprint was deleted successfully").ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new ModalWindows.ErrorForm(ex.Message);
+                }
+                Cursor = Cursors.Arrow;
             }
-           
-
         }
     }
 }

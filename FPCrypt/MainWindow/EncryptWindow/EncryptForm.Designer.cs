@@ -72,7 +72,7 @@
             this.labelError.AutoSize = true;
             this.labelError.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(144, 139);
+            this.labelError.Location = new System.Drawing.Point(57, 141);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(38, 17);
             this.labelError.TabIndex = 3;
