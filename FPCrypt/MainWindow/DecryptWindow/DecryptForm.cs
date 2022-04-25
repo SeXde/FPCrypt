@@ -21,7 +21,7 @@ namespace FPCrypt.MainWindow.DecryptWindow
         private void btnFld_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "FPCrypt files (*.fpc)|.fpc";
+            ofd.Filter = "FPCrypt files (*.fpc)|*.fpc";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 textPath.Text = ofd.FileName;

@@ -50,6 +50,10 @@ namespace FPCrypt
             var task = Task.Run(() => doDeleteFingerprint(id));
             if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
             {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
             }
         }
@@ -59,6 +63,10 @@ namespace FPCrypt
             var task = Task.Run(() => doClear());
             if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
             {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
             }
         }
@@ -77,16 +85,17 @@ namespace FPCrypt
                 Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
 
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
             if (readedValue.Contains(ACK_ERROR))
             {
                 string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
                 throw new Exception(error);
             }
 
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
-            }
             readedValue = Regex.Match(readedValue, @"fingerprint:[0-9]+").Value;
             return readedValue.Replace(ACK_FP, "").Trim();
         }
@@ -104,16 +113,17 @@ namespace FPCrypt
                 Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
 
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
             if (readedValue.Contains(ACK_ERROR))
             {
                 string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
                 throw new Exception(error);
             }
 
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
-            }
             readedValue = Regex.Match(readedValue, @"fingerprint:[0-9]+").Value;
             return readedValue.Replace(ACK_FP, "").Trim();
 
@@ -132,15 +142,15 @@ namespace FPCrypt
                 Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
 
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
             if (readedValue.Contains(ACK_ERROR))
             {
                 string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
                 throw new Exception(error);
-            }
-
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
             }
 
         }
@@ -158,15 +168,15 @@ namespace FPCrypt
                 Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
 
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
             if (readedValue.Contains(ACK_ERROR))
             {
                 string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
                 throw new Exception(error);
-            }
-
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
             }
 
         }
@@ -183,15 +193,15 @@ namespace FPCrypt
                 Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_ALIVE) && !readedValue.Contains(ACK_ERROR));
 
+            if (serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
             if (readedValue.Contains(ACK_ERROR))
             {
                 string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
                 throw new Exception(error);
-            }
-
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
             }
         }
 
