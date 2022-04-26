@@ -12,7 +12,7 @@ namespace FPCrypt.WindowsUtils
         {
             oldForm.Hide();
             newForm.Closed += (s, args) => oldForm.Close();
-            newForm.Show();
+            newForm.ShowDialog(oldForm);
         }
 
         public static string? detectErrors(string password)

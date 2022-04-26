@@ -56,7 +56,7 @@ namespace FPCrypt.MainWindow
                     ArduinoCom.deleteFingerPrint(Int32.Parse(fingerprint.getFingerprintValue()));
                     FingerprintManager.getInstance().deleteFP(fingerprint);
                     mainWindow.loadFingerprints();
-                    new ModalWindows.InfoForm("Fingerprint was deleted successfully").ShowDialog();
+                    new ModalWindows.InfoForm("Fingerprint was deleted successfully").ShowDialog(this);
                 }
                 catch (Exception ex)
                 {
