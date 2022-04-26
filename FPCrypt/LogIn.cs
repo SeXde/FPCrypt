@@ -31,7 +31,7 @@ namespace FPCrypt
                     masterPasswordManager.setPassword(PasswordTextBox.Text);
                     LogInButton.Text = "Log In";
                     var infoForm = new ModalWindows.InfoForm("Password was successfully created");
-                    infoForm.ShowDialog();
+                    infoForm.ShowDialog(this);
                 } else
                 {
                     if (!masterPasswordManager.checkMasterpassword(PasswordTextBox.Text))
