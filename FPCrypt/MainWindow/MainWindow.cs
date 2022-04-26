@@ -12,9 +12,12 @@ namespace FPCrypt.MainWindow
 {
     public partial class MainWindow : Form
     {
+        private FingerprintManager fingerprintManager;
         public MainWindow()
         {
             InitializeComponent();
+            fingerprintManager = FingerprintManager.getInstance();
+            loadFingerprints();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -41,5 +44,67 @@ namespace FPCrypt.MainWindow
         {
 
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPassword_Click(object sender, EventArgs e)
+        {
+            new PasswordWindow.PasswordForm().ShowDialog();
+
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+           new EncryptWindow.EncryptForm().ShowDialog();
+        }
+
+        private void btnUnlock_Click(object sender, EventArgs e)
+        {
+            new DecryptWindow.DecryptForm().ShowDialog();
+        }
+
+        private void btnFingerPrint_Click(object sender, EventArgs e)
+        {
+            new AddFingerPrintWindow.AddFingerpirntForm(this).ShowDialog();
+        }
+
+        public void loadFingerprints()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            foreach (var fingerprint in fingerprintManager.getFingerprints())
+            {
+                var fpItem = new ListFingerprintItem(fingerprint, this);
+                this.flowLayoutPanel1.Controls.Add(fpItem);
+            }
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }

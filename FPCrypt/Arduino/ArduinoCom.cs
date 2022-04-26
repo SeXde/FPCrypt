@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using System.Text.RegularExpressions;
 
 namespace FPCrypt
 {
@@ -11,7 +12,6 @@ namespace FPCrypt
         private static string ACK_DELETE = "done";
         private static string ACK_ERROR = "error";
         private static int TIME_OUT = 50;
-        public static event Notify fingerprintEvents;
 
 
         public static string readFingerPrint()
@@ -20,7 +20,14 @@ namespace FPCrypt
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
+            {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
+            }
+            
         }
 
         public static string registerFingerPrint(int id)
@@ -29,7 +36,13 @@ namespace FPCrypt
             if (task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
                 return task.Result;
             else
+            {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
+            }
         }
 
         public static void deleteFingerPrint(int id)
@@ -37,6 +50,10 @@ namespace FPCrypt
             var task = Task.Run(() => doDeleteFingerprint(id));
             if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
             {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
             }
         }
@@ -46,6 +63,10 @@ namespace FPCrypt
             var task = Task.Run(() => doClear());
             if (!task.Wait(TimeSpan.FromSeconds(TIME_OUT)))
             {
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
                 throw new Exception("Timeout");
             }
         }
@@ -61,18 +82,21 @@ namespace FPCrypt
             {
                 Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
-
-            if (readedValue.Contains(ACK_ERROR))
-            {
-                throw new Exception("Error trying to read fingerprint");
-            }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
+            }
+
+            readedValue = Regex.Match(readedValue, @"fingerprint:[0-9]+").Value;
             return readedValue.Replace(ACK_FP, "").Trim();
         }
 
@@ -84,20 +108,23 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_FP) && !readedValue.Contains(ACK_ERROR));
-
-            if (readedValue.Contains(ACK_ERROR))
-            {
-                throw new Exception("Error trying to register fingerprint");
-            }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
             }
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
+            }
+
+            readedValue = Regex.Match(readedValue, @"fingerprint:[0-9]+").Value;
             return readedValue.Replace(ACK_FP, "").Trim();
 
         }
@@ -110,19 +137,20 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
-
-            if (readedValue.Contains(ACK_ERROR))
-            {
-                throw new Exception("Error trying to delete fingerprint");
-            }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
+            }
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
             }
 
         }
@@ -135,19 +163,20 @@ namespace FPCrypt
 
             do
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_DELETE) && !readedValue.Contains(ACK_ERROR));
-
-            if (readedValue.Contains(ACK_ERROR))
-            {
-                throw new Exception("Error trying to clear db");
-            }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
+            }
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
             }
 
         }
@@ -161,17 +190,18 @@ namespace FPCrypt
                 serialPort.Write("Show " + type + ":" + info);
                 Thread.Sleep(1010);
                 readedValue = serialPort.ReadExisting();
-                fingerprintEvents.Invoke(readedValue);
+                Console.WriteLine(readedValue);
             } while (!readedValue.Contains(ACK_ALIVE) && !readedValue.Contains(ACK_ERROR));
-
-            if (readedValue.Contains(ACK_ERROR))
-            {
-                throw new Exception("Error trying to write info");
-            }
 
             if (serialPort.IsOpen)
             {
                 serialPort.Close();
+            }
+
+            if (readedValue.Contains(ACK_ERROR))
+            {
+                string error = Regex.Match(readedValue, @"error\|[a-z A-Z]+\|").Value.Replace("error", "").Replace("|", "");
+                throw new Exception(error);
             }
         }
 

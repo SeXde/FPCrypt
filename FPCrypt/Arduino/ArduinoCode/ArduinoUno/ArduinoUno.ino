@@ -2,13 +2,15 @@
 #include "Fingerprint.h"
 
 Fingerprint fingerprintHandler = Fingerprint();
+int ledPin = 10;
 
 void setup()
 {
 	Serial.begin(9600);
-	pinMode(10, OUTPUT);
 
-	fingerprintHandler.setup();
+	pinMode(ledPin, OUTPUT);
+
+	fingerprintHandler.setup(ledPin);
 }
 
 void loop()
@@ -17,7 +19,7 @@ void loop()
 
 	if (readedString.indexOf("Get fingerprint") != -1)
 	{
-		digitalWrite(10, HIGH);
+		Serial.println("Trying to get fingerprint");
 
 		bool found = false;
 		while (!found)
@@ -31,47 +33,45 @@ void loop()
 				found = true;
 			}
 		}
-
-		digitalWrite(10, LOW);
 	}
 	else if (readedString.startsWith("Register fingerprint:"))
 	{
-		digitalWrite(10, HIGH);
 
 		const int idStartIndex = readedString.indexOf(":");
-		const int id = readedString.substring(idStartIndex).toInt();
+		const int id = readedString.substring(idStartIndex + 1).toInt();
+		Serial.println("Registering...");
 
 		const int status = fingerprintHandler.registerFingerprint(id);
 
 		if (status == FINGERPRINT_OK)
 		{
-			Serial.println(String("fingerprint:") + status);
+			Serial.println(String("fingerprint:") + id);
 		}
 		else
 		{
-			Serial.println(String("error:") + fingerprintHandler.translateErrorMessage(status));
+			Serial.println(String("error|") + fingerprintHandler.translateErrorMessage(status) + String("|"));
 		}
-
-		digitalWrite(10, LOW);
 	}
 	else if (readedString.startsWith("Delete fingerprint:"))
 	{
 		const int idStartIndex = readedString.indexOf(":");
-		const int id = readedString.substring(idStartIndex).toInt();
+		const int id = readedString.substring(idStartIndex + 1).toInt();
+		Serial.println(String("Deleting fingerprint: ") + id);
 
 		const int status = fingerprintHandler.deleteFingerprint(id);
 
 		if (status != FINGERPRINT_OK)
 		{
-			Serial.println("error");
+			Serial.println("error|unknown error|");
 		}
 		else
 		{
 			Serial.println("done");
 		}
 	}
-	else if (readedString.equals("Clear"))
+	else if (readedString.indexOf("Clear") != -1)
 	{
+		Serial.println("Clearing all fingerprints");
 		fingerprintHandler.deleteAllFingerprints();
 
 		Serial.println("done");
