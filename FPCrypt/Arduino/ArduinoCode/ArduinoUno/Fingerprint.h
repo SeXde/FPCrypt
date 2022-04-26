@@ -30,7 +30,7 @@ class Fingerprint
 {
 	Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 	int ledPin = 0;
-
+void(* resetFunc) (void) = 0;
 public:
 	void setup(int ledPin)
 	{
@@ -38,23 +38,16 @@ public:
 		// set the data rate for the sensor serial port
 		finger.begin(57600);
 
-		if (finger.verifyPassword())
-		{
-			Serial.println("Found fingerprint sensor!");
-		}
-		else
-		{
-			Serial.println("error|Did not find fingerprint sensor|");
-			while (1)
-			{
-				delay(1);
-			}
-		}
-
+    if(!finger.verifyPassword()) {
+      Serial.println("error|Did not find fingerprint sensor|");
+      resetFunc();
+    }
+    Serial.println("Found fingerprint sensor!");
 		// printParams();
 		this->ledPin = ledPin;
 	}
 
+  
 	/** Returns the error string if any */
 	int registerFingerprint(uint8_t id)
 	{
